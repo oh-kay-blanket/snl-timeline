@@ -4,7 +4,7 @@ export interface CastMember {
   url: string;
   season: number;
   season_start: number;
-  gender: 'male' | 'female';
+  gender?: 'male' | 'female';
   total_seasons: number;
   cat: string;
   period: number;

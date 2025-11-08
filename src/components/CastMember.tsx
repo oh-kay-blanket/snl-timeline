@@ -57,7 +57,9 @@ export default function CastMember({ member, x, y, isActive: _isActive = false, 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={onClick}
-      />
+      >
+        {!hasSprite && <span className="cast-member-name-text">{member.name}</span>}
+      </div>
       {isHovered && (
         <div className="cast-member-tooltip">
           <div className="tooltip-name">{member.name}</div>

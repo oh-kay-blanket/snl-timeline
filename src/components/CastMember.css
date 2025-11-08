@@ -19,6 +19,24 @@
   background-image: none;
   width: 80px;
   height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cast-member-name-text {
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  user-select: none;
+  pointer-events: none;
+  text-align: center;
+  padding: 4px;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
 }
 
 @media (max-width: 767px) {
@@ -29,6 +47,11 @@
   .cast-member-photo.no-photo {
     width: 60px;
     height: 60px;
+  }
+
+  .cast-member-name-text {
+    font-size: 8px;
+    padding: 2px;
   }
 }
 

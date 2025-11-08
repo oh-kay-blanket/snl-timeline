@@ -3,6 +3,7 @@ import ScrollContainer from './components/ScrollContainer';
 import SeasonView from './components/SeasonView';
 import CastBioModal from './components/CastBioModal';
 import AllCastView from './components/AllCastView';
+import Timeline from './components/Timeline';
 import { parseSeasonData } from './utils/dataParser';
 import { cast } from './data/cast';
 import type { CastMember } from './types';
@@ -29,6 +30,8 @@ function App() {
 
   return (
     <div className="app">
+      <Timeline seasons={seasons} scrollProgress={scrollProgress} />
+
       <div className="fixed-season-info">
         {currentSeason && (
           <div className="season-info-layer" style={{ opacity: currentOpacity }}>
