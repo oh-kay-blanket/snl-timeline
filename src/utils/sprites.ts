@@ -1,5 +1,4 @@
 import { heads96 } from '../data/sprites96';
-import type { SpriteCoordinates } from '../types';
 
 export const SPRITE_IMAGE_PATH = '/images/snl-sprites.png';
 export const SPRITE_SIZE = 96;
@@ -22,7 +21,7 @@ export function getSpriteStyle(spriteKey: string, size: number = SPRITE_SIZE): R
     return {};
   }
 
-  const [x, y, width, height] = coords;
+  const [x, y, width] = coords;
   const scale = size / width;
 
   return {

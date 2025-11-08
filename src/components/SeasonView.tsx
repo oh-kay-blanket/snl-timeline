@@ -7,7 +7,7 @@ interface SeasonViewProps {
   isActive: boolean;
 }
 
-export default function SeasonView({ season }: SeasonViewProps) {
+export default function SeasonView({ season: _season }: SeasonViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (

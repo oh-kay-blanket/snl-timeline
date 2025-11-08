@@ -12,7 +12,7 @@ interface CastMemberProps {
   onClick?: () => void;
 }
 
-export default function CastMember({ member, x, y, isActive = false, onClick }: CastMemberProps) {
+export default function CastMember({ member, x, y, isActive: _isActive = false, onClick }: CastMemberProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   // Use smaller photos on mobile
