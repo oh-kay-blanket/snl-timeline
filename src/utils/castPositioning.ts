@@ -1,5 +1,5 @@
 import type { CastMember } from '../types';
-import { clusterCastMembers } from './clustering';
+import { clusterCastMembers, getSafeBounds, overlapsSeasonTitle } from './clustering';
 
 type CastState = 'before' | 'active' | 'after';
 
@@ -170,18 +170,40 @@ function getOrCreateSeasonPositions(
           }
         }
 
-        // Apply with heavy damping and clamp to bounds
-        const minX = CIRCLE_RADIUS + 10;
-        const maxX = windowWidth - CIRCLE_RADIUS - 10;
-        const minY = CIRCLE_RADIUS + 10;
-        const maxY = windowHeight - CIRCLE_RADIUS - 10;
+        // Get safe bounds considering UI elements
+        const bounds = getSafeBounds(CIRCLE_RADIUS);
 
         allPositions.forEach(p => {
+          // Repulsion from season title area
+          if (overlapsSeasonTitle(p.x, p.y, CIRCLE_RADIUS, bounds)) {
+            const { seasonTitleBox } = bounds;
+            const titleCenterX = (seasonTitleBox.left + seasonTitleBox.right) / 2;
+            const titleCenterY = (seasonTitleBox.top + seasonTitleBox.bottom) / 2;
+            const awayX = p.x - titleCenterX;
+            const awayY = p.y - titleCenterY;
+            const awayDistance = Math.sqrt(awayX * awayX + awayY * awayY);
+
+            if (awayDistance > 0) {
+              const pushForce = 50; // Strong push away from title
+              p.vx += (awayX / awayDistance) * pushForce;
+              p.vy += (awayY / awayDistance) * pushForce;
+            }
+          }
+
+          // Apply with heavy damping
           p.x += p.vx * 0.6;
           p.y += p.vy * 0.6;
-          // Clamp to viewport bounds
-          p.x = Math.max(minX, Math.min(maxX, p.x));
-          p.y = Math.max(minY, Math.min(maxY, p.y));
+
+          // Clamp to safe bounds
+          p.x = Math.max(bounds.minX, Math.min(bounds.maxX, p.x));
+          p.y = Math.max(bounds.minY, Math.min(bounds.maxY, p.y));
+
+          // If still overlapping season title after clamping, push it away
+          if (overlapsSeasonTitle(p.x, p.y, CIRCLE_RADIUS, bounds)) {
+            const { seasonTitleBox } = bounds;
+            // Push to the right of the season title
+            p.x = Math.max(p.x, seasonTitleBox.right + CIRCLE_RADIUS + 20);
+          }
         });
       }
 

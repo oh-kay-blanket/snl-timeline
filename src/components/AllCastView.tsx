@@ -1,7 +1,9 @@
 import { useMemo, useEffect } from 'react';
 import type { CastMember as CastMemberType, SeasonWithCast } from '../types';
 import CastMember from './CastMember';
+import WeekendUpdateBadge from './WeekendUpdateBadge';
 import { calculateCastPositions, clearPositionCache } from '../utils/castPositioning';
+import { parseAnchorNames } from '../utils/dataParser';
 import './AllCastView.css';
 
 interface AllCastViewProps {
@@ -80,18 +82,64 @@ export default function AllCastView({
     return new Set(currentSeason.cast.map(m => m.name));
   }, [currentSeason]);
 
+  // Calculate Weekend Update badge positions
+  const badgePositions = useMemo(() => {
+    if (!currentSeason) return [];
+
+    // Get anchor names for current season only
+    const anchors = parseAnchorNames(currentSeason.anchors);
+    if (anchors.length === 0) return [];
+
+    // Cast member size for offset calculation
+    const isMobile = window.innerWidth < 768;
+    const castMemberRadius = isMobile ? 30 : 40; // Half of photo size
+    const badgeOffset = castMemberRadius * 0.65; // Offset less to create overlap
+    const badgeSize = isMobile ? 20 : 24;
+
+    // Screen bounds with margin
+    const margin = badgeSize;
+    const minX = margin;
+    const maxX = window.innerWidth - margin;
+    const minY = margin;
+    const maxY = window.innerHeight - margin;
+
+    // Find position for each anchor and clamp to screen
+    const positions = anchors
+      .map(anchorName => {
+        // Find this anchor's position in the interpolated cast positions
+        const pos = castPositions.find(p => p.member.name === anchorName);
+        if (!pos) return null;
+
+        // Calculate badge position (top-left of cast member with overlap)
+        const badgeX = pos.x - badgeOffset;
+        const badgeY = pos.y - badgeOffset;
+
+        // Clamp to screen bounds
+        return {
+          x: Math.max(minX, Math.min(maxX, badgeX)),
+          y: Math.max(minY, Math.min(maxY, badgeY))
+        };
+      })
+      .filter(p => p !== null);
+
+    return positions;
+  }, [currentSeason, castPositions]);
+
   return (
-    <div className="all-cast-view">
-      {castPositions.map(({ member, x, y }) => (
-        <CastMember
-          key={member.name}
-          member={member}
-          x={x}
-          y={y}
-          isActive={activeCastNames.has(member.name)}
-          onClick={() => onCastClick?.(member)}
-        />
-      ))}
-    </div>
+    <>
+      <div className="all-cast-view">
+        {castPositions.map(({ member, x, y }) => (
+          <CastMember
+            key={member.name}
+            member={member}
+            x={x}
+            y={y}
+            isActive={activeCastNames.has(member.name)}
+            onClick={() => onCastClick?.(member)}
+          />
+        ))}
+      </div>
+      <WeekendUpdateBadge positions={badgePositions} />
+    </>
   );
 }

@@ -7,6 +7,59 @@ export interface ClusteredPosition {
 }
 
 /**
+ * Calculate safe bounds for cast members considering UI elements
+ */
+export function getSafeBounds(circleRadius: number) {
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+  const isMobile = windowWidth < 768;
+
+  // Base margin from screen edges
+  const edgeMargin = isMobile ? 40 : 80;
+
+  // Timeline on left side (20px position + 40px width + padding)
+  const timelineWidth = isMobile ? 30 : 40;
+  const timelineLeft = isMobile ? 10 : 20;
+  const timelineRight = timelineLeft + timelineWidth + (isMobile ? 20 : 30);
+
+  // Season title area (top-left)
+  const seasonTitleTop = isMobile ? 30 : 60;
+  const seasonTitleLeft = isMobile ? 30 : 60;
+  const seasonTitleWidth = isMobile ? 200 : 350;
+  const seasonTitleHeight = isMobile ? 80 : 150;
+
+  return {
+    minX: Math.max(edgeMargin, timelineRight) + circleRadius,
+    maxX: windowWidth - edgeMargin - circleRadius,
+    minY: edgeMargin + circleRadius,
+    maxY: windowHeight - edgeMargin - circleRadius,
+    seasonTitleBox: {
+      left: seasonTitleLeft,
+      right: seasonTitleLeft + seasonTitleWidth,
+      top: seasonTitleTop,
+      bottom: seasonTitleTop + seasonTitleHeight
+    }
+  };
+}
+
+/**
+ * Check if a position overlaps with the season title area
+ */
+export function overlapsSeasonTitle(x: number, y: number, circleRadius: number, bounds: ReturnType<typeof getSafeBounds>): boolean {
+  const { seasonTitleBox } = bounds;
+
+  // Check if circle overlaps with season title rectangle
+  const closestX = Math.max(seasonTitleBox.left, Math.min(x, seasonTitleBox.right));
+  const closestY = Math.max(seasonTitleBox.top, Math.min(y, seasonTitleBox.bottom));
+
+  const distanceX = x - closestX;
+  const distanceY = y - closestY;
+  const distanceSquared = distanceX * distanceX + distanceY * distanceY;
+
+  return distanceSquared < (circleRadius * circleRadius);
+}
+
+/**
  * Simple force-directed clustering algorithm for organic positioning
  */
 export function clusterCastMembers(
@@ -19,6 +72,9 @@ export function clusterCastMembers(
   const isMobile = window.innerWidth < 768;
   const CIRCLE_RADIUS = isMobile ? 30 : 40; // Radius of each cast member circle
   const SPACING = isMobile ? 10 : 15; // Additional spacing between circles
+
+  // Get safe bounds
+  const bounds = getSafeBounds(CIRCLE_RADIUS);
 
   // Calculate safe cluster radius based on viewport - keep cast members visible
   const viewportPadding = CIRCLE_RADIUS + 50; // Extra padding from edges
@@ -84,6 +140,22 @@ export function clusterCastMembers(
         p.vx += (dx / distance) * force;
         p.vy += (dy / distance) * force;
       }
+
+      // Repulsion from season title area
+      if (overlapsSeasonTitle(p.x, p.y, CIRCLE_RADIUS, bounds)) {
+        const { seasonTitleBox } = bounds;
+        const titleCenterX = (seasonTitleBox.left + seasonTitleBox.right) / 2;
+        const titleCenterY = (seasonTitleBox.top + seasonTitleBox.bottom) / 2;
+        const awayX = p.x - titleCenterX;
+        const awayY = p.y - titleCenterY;
+        const awayDistance = Math.sqrt(awayX * awayX + awayY * awayY);
+
+        if (awayDistance > 0) {
+          const pushForce = 50; // Strong push away from title
+          p.vx += (awayX / awayDistance) * pushForce;
+          p.vy += (awayY / awayDistance) * pushForce;
+        }
+      }
     }
 
     // Apply velocities with damping to prevent oscillation
@@ -94,15 +166,22 @@ export function clusterCastMembers(
     });
   }
 
-  // Clamp positions to ensure they stay within viewport bounds
-  const minX = CIRCLE_RADIUS + 10;
-  const maxX = window.innerWidth - CIRCLE_RADIUS - 10;
-  const minY = CIRCLE_RADIUS + 10;
-  const maxY = window.innerHeight - CIRCLE_RADIUS - 10;
+  // Clamp positions to ensure they stay within safe bounds
+  return positions.map(({ member, x, y }) => {
+    let clampedX = Math.max(bounds.minX, Math.min(bounds.maxX, x));
+    let clampedY = Math.max(bounds.minY, Math.min(bounds.maxY, y));
 
-  return positions.map(({ member, x, y }) => ({
-    member,
-    x: Math.max(minX, Math.min(maxX, x)),
-    y: Math.max(minY, Math.min(maxY, y))
-  }));
+    // If still overlapping season title after clamping, push it away
+    if (overlapsSeasonTitle(clampedX, clampedY, CIRCLE_RADIUS, bounds)) {
+      const { seasonTitleBox } = bounds;
+      // Push to the right of the season title
+      clampedX = Math.max(clampedX, seasonTitleBox.right + CIRCLE_RADIUS + 20);
+    }
+
+    return {
+      member,
+      x: clampedX,
+      y: clampedY
+    };
+  });
 }

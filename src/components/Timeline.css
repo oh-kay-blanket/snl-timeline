@@ -1,192 +1,99 @@
 .timeline {
   position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
-  padding: 20px 15px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  min-width: 120px;
-  transition: transform 0.3s ease;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.timeline.collapsed {
-  transform: translateX(-100%);
-  padding: 0;
-  min-width: 0;
-}
-
-.timeline-toggle {
-  position: absolute;
-  right: -30px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
-  width: 30px;
-  height: 60px;
-  background: rgba(0, 0, 0, 0.85);
-  border: none;
-  border-radius: 0 8px 8px 0;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
+  height: 80vh;
+  max-height: 600px;
+  z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-  z-index: 1;
-}
-
-.timeline-toggle:hover {
-  background: rgba(0, 0, 0, 0.95);
-}
-
-.timeline-header {
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 20px;
-  text-align: center;
-  letter-spacing: 0.5px;
+  pointer-events: none;
 }
 
 .timeline-track {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
   position: relative;
-  padding-left: 5px;
-}
-
-.timeline-track::-webkit-scrollbar {
-  width: 4px;
-}
-
-.timeline-track::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-}
-
-.timeline-track::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-}
-
-.timeline-track::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.timeline-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 18px;
+  width: 40px;
+  height: 100%;
+  background: transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 4px;
-  border-radius: 4px;
+  pointer-events: auto;
 }
 
-.timeline-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.timeline-item:last-child {
-  margin-bottom: 0;
-}
-
-.timeline-marker {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  margin-right: 12px;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.timeline-item.past .timeline-marker {
+.timeline-tick {
+  position: absolute;
+  left: 0;
+  transform: translateY(-50%);
+  height: 1px;
   background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
 }
 
-.timeline-item.active .timeline-marker {
-  background: #4CAF50;
-  border-color: #81C784;
-  box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
-  width: 14px;
-  height: 14px;
+.timeline-tick.minor {
+  width: 6px;
 }
 
-.timeline-label {
-  display: flex;
-  flex-direction: column;
-  color: rgba(255, 255, 255, 0.7);
-  transition: color 0.2s ease;
+.timeline-tick.major {
+  width: 12px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.7);
 }
 
-.timeline-item:hover .timeline-label {
-  color: rgba(255, 255, 255, 0.9);
+.timeline-hover-tick {
+  position: absolute;
+  left: 0;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
 }
 
-.timeline-item.active .timeline-label {
+.timeline-year-label {
+  position: absolute;
+  left: 35px;
+  transform: translateY(-50%);
   color: white;
-  font-weight: 600;
-}
-
-.timeline-season-number {
   font-size: 14px;
-  line-height: 1;
-  margin-bottom: 2px;
-}
-
-.timeline-year {
-  font-size: 11px;
-  opacity: 0.8;
+  font-weight: 400;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 /* Mobile adjustments */
 @media (max-width: 767px) {
   .timeline {
-    min-width: 90px;
-    padding: 15px 10px;
+    left: 10px;
+    height: 70vh;
+    max-height: 500px;
   }
 
-  .timeline-toggle {
-    right: -25px;
-    width: 25px;
-    height: 50px;
-    font-size: 16px;
+  .timeline-track {
+    width: 30px;
   }
 
-  .timeline-header {
-    font-size: 14px;
-    margin-bottom: 15px;
+  .timeline-tick.minor {
+    width: 4px;
   }
 
-  .timeline-item {
-    margin-bottom: 14px;
+  .timeline-tick.major {
+    width: 8px;
   }
 
-  .timeline-marker {
-    width: 10px;
-    height: 10px;
-    margin-right: 8px;
+  .timeline-hover-tick {
+    width: 20px;
   }
 
-  .timeline-item.active .timeline-marker {
-    width: 12px;
-    height: 12px;
-  }
-
-  .timeline-season-number {
+  .timeline-year-label {
+    left: 25px;
     font-size: 12px;
   }
+}
 
-  .timeline-year {
-    font-size: 10px;
-  }
+/* Prevent text selection while dragging */
+.timeline-track.dragging {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }

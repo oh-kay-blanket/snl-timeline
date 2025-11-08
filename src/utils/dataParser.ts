@@ -1,4 +1,5 @@
 import { cast } from '../data/cast';
+import { seasonsData } from '../data/seasons';
 import type { CastMember, SeasonWithCast } from '../types';
 
 /**
@@ -41,6 +42,9 @@ export function parseSeasonData(): SeasonWithCast[] {
     const yearStart = 1975 + (seasonNum - 1);
     const yearEnd = yearStart + 1;
 
+    // Get season metadata from seasonsData
+    const seasonData = seasonsData.find(s => s.season === seasonNum);
+
     seasons.push({
       season: seasonNum,
       year: `${yearStart}-${yearEnd}`,
@@ -50,14 +54,31 @@ export function parseSeasonData(): SeasonWithCast[] {
       newCast,
       departingCast,
       continuingCast,
-      anchors: '',
-      hosts: '',
-      music: '',
-      sketches: ''
+      anchors: seasonData?.anchors || '',
+      hosts: seasonData?.hosts || '',
+      music: seasonData?.music || '',
+      sketches: seasonData?.sketches || ''
     });
   }
 
   return seasons;
+}
+
+/**
+ * Parses anchor names from the anchors string
+ * Removes episode ranges like "(1-4)" and returns array of names
+ */
+export function parseAnchorNames(anchorsString: string): string[] {
+  if (!anchorsString) return [];
+
+  // Split by comma and clean up each name
+  return anchorsString
+    .split(',')
+    .map(anchor => {
+      // Remove episode ranges like "(1-4)" and trim whitespace
+      return anchor.replace(/\s*\([^)]*\)/g, '').trim();
+    })
+    .filter(name => name.length > 0);
 }
 
 /**
