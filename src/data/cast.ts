@@ -1,4 +1,7 @@
-var cast = [
+import type { CastMember } from '../types';
+
+export const cast: CastMember[] = 
+[
   {
     name: 'George Coe',
     status: 'a',

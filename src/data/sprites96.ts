@@ -1,4 +1,7 @@
-var heads96 = {
+import type { SpriteCoordinates } from '../types';
+
+export const heads96: SpriteCoordinates = 
+{
   'abby-elliott bw.png': [0, 0, 96, 96],
   'jim-belushi bw.png': [96, 0, 96, 96],
   'adam-sandler bw.png': [0, 96, 96, 96],

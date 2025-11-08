@@ -1,0 +1,10 @@
+import type { Timespan } from '../types';
+
+export const timespans: Timespan[] = 
+[
+  [1975, 1979],
+  [1980, 1985],
+  [1986, 1994],
+  [1995, 2004],
+  [2005, 2019],
+];
