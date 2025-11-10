@@ -15,25 +15,76 @@
   z-index: 10;
 }
 
-.season-info-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: opacity 0.05s linear;
-}
-
 .season-number {
+  display: flex;
+  align-items: baseline;
   font-size: 48px;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 8px;
   letter-spacing: -1px;
   white-space: nowrap;
+  height: 58px;
+}
+
+.season-label {
+  display: inline-block;
+}
+
+.season-number-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 58px;
+  min-width: 50px;
+}
+
+.season-number-value {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+}
+
+.season-year-container {
+  position: relative;
+  height: 36px;
+  overflow: hidden;
 }
 
 .season-year {
+  position: absolute;
+  top: 0;
+  left: 0;
   font-size: 24px;
   font-weight: 300;
   color: #888888;
   letter-spacing: 1px;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 767px) {
+  .fixed-season-info {
+    top: 30px;
+    left: 30px;
+  }
+
+  .season-number {
+    font-size: 32px;
+    height: 40px;
+    margin-bottom: 4px;
+  }
+
+  .season-number-container {
+    height: 40px;
+    min-width: 35px;
+  }
+
+  .season-year-container {
+    height: 24px;
+  }
+
+  .season-year {
+    font-size: 16px;
+  }
 }

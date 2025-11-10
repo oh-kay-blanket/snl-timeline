@@ -21,10 +21,8 @@ export default function AllCastView({
   transitionProgress,
   onCastClick
 }: AllCastViewProps) {
-  // Clear position cache on mount and resize to use latest clustering parameters
+  // Clear position cache on resize to recalculate with new dimensions
   useEffect(() => {
-    clearPositionCache();
-
     const handleResize = () => {
       clearPositionCache();
     };
@@ -47,8 +45,9 @@ export default function AllCastView({
 
   // Pre-calculate positions for next season to prevent jumps on first scroll
   useEffect(() => {
-    if (currentSeason && nextSeason && currentSeason.season !== nextSeason.season) {
+    if (currentSeason && nextSeason) {
       // Trigger calculation with transitionProgress = 0 to cache both seasons
+      // This includes the initial case where current === next (both Season 1)
       calculateCastPositions(
         uniqueCast,
         currentSeason.season,

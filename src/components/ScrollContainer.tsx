@@ -15,14 +15,18 @@ export default function ScrollContainer({ children, onScrollProgress }: ScrollCo
 
     const handleScroll = () => {
       const scrollTop = container.scrollTop;
-      const windowHeight = window.innerHeight;
+      // Use clientHeight instead of window.innerHeight for accurate mobile calculation
+      const viewportHeight = container.clientHeight;
 
       // Calculate exact scroll progress (which season + fraction)
-      const progress = scrollTop / windowHeight;
+      const progress = scrollTop / viewportHeight;
       onScrollProgress?.(progress);
     };
 
     container.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Trigger initial position calculation on mount
+    handleScroll();
 
     return () => {
       container.removeEventListener('scroll', handleScroll);

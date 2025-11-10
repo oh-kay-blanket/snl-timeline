@@ -24,7 +24,9 @@ function App() {
   const currentSeason = seasons[currentSeasonIndex];
   const nextSeason = seasons[nextSeasonIndex];
 
-  // Calculate opacities for crossfade
+  // Calculate transforms and opacities for sliding animation
+  const currentTransform = `translateY(${-transitionProgress * 100}%)`;
+  const nextTransform = `translateY(${(1 - transitionProgress) * 100}%)`;
   const currentOpacity = 1 - transitionProgress;
   const nextOpacity = transitionProgress;
 
@@ -33,18 +35,57 @@ function App() {
       <Timeline seasons={seasons} scrollProgress={scrollProgress} />
 
       <div className="fixed-season-info">
-        {currentSeason && (
-          <div className="season-info-layer" style={{ opacity: currentOpacity }}>
-            <div className="season-number">Season {currentSeason.season}</div>
-            <div className="season-year">{currentSeason.year}</div>
-          </div>
-        )}
-        {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
-          <div className="season-info-layer" style={{ opacity: nextOpacity }}>
-            <div className="season-number">Season {nextSeason.season}</div>
-            <div className="season-year">{nextSeason.year}</div>
-          </div>
-        )}
+        <div className="season-number">
+          <span className="season-label">Season </span>
+          <span className="season-number-container">
+            {currentSeason && (
+              <span
+                className="season-number-value"
+                style={{
+                  transform: currentTransform,
+                  opacity: currentOpacity
+                }}
+              >
+                {currentSeason.season}
+              </span>
+            )}
+            {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
+              <span
+                className="season-number-value"
+                style={{
+                  transform: nextTransform,
+                  opacity: nextOpacity
+                }}
+              >
+                {nextSeason.season}
+              </span>
+            )}
+          </span>
+        </div>
+        <div className="season-year-container">
+          {currentSeason && (
+            <div
+              className="season-year"
+              style={{
+                transform: currentTransform,
+                opacity: currentOpacity
+              }}
+            >
+              {currentSeason.year}
+            </div>
+          )}
+          {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
+            <div
+              className="season-year"
+              style={{
+                transform: nextTransform,
+                opacity: nextOpacity
+              }}
+            >
+              {nextSeason.year}
+            </div>
+          )}
+        </div>
       </div>
 
       <AllCastView
