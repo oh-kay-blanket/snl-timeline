@@ -8,6 +8,7 @@ import './AllCastView.css';
 
 interface AllCastViewProps {
   allCast: CastMemberType[];
+  seasons: SeasonWithCast[];
   currentSeason: SeasonWithCast | undefined;
   nextSeason: SeasonWithCast | undefined;
   transitionProgress: number;
@@ -16,6 +17,7 @@ interface AllCastViewProps {
 
 export default function AllCastView({
   allCast,
+  seasons,
   currentSeason,
   nextSeason,
   transitionProgress,
@@ -30,6 +32,16 @@ export default function AllCastView({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Create season cast mapping from seasons.ts data (source of truth)
+  const seasonCastMap = useMemo(() => {
+    const map = new Map<number, Set<string>>();
+    seasons.forEach(season => {
+      const castNames = new Set(season.cast.map(member => member.name));
+      map.set(season.season, castNames);
+    });
+    return map;
+  }, [seasons]);
 
   // Deduplicate cast members by name (keep first occurrence)
   const uniqueCast = useMemo(() => {
@@ -52,10 +64,11 @@ export default function AllCastView({
         uniqueCast,
         currentSeason.season,
         nextSeason.season,
-        0
+        0,
+        seasonCastMap
       );
     }
-  }, [currentSeason, nextSeason, uniqueCast]);
+  }, [currentSeason, nextSeason, uniqueCast, seasonCastMap]);
 
   // Calculate positions with smooth interpolation based on scroll
   const castPositions = useMemo(() => {
@@ -69,17 +82,20 @@ export default function AllCastView({
       uniqueCast,
       currentSeason.season,
       nextSeasonNumber,
-      transitionProgress
+      transitionProgress,
+      seasonCastMap
     );
 
     return positions;
-  }, [uniqueCast, currentSeason, nextSeason, transitionProgress]);
+  }, [uniqueCast, currentSeason, nextSeason, transitionProgress, seasonCastMap]);
 
   // Get set of active cast member names for current season
   const activeCastNames = useMemo(() => {
     if (!currentSeason) return new Set<string>();
-    return new Set(currentSeason.cast.map(m => m.name));
+    const names = new Set(currentSeason.cast.map(m => m.name));
+    return names;
   }, [currentSeason]);
+
 
   // Calculate Weekend Update badge positions
   // const badgePositions = useMemo(() => {

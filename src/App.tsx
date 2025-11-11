@@ -5,7 +5,6 @@ import CastBioModal from './components/CastBioModal';
 import AllCastView from './components/AllCastView';
 import Timeline from './components/Timeline';
 import { parseSeasonData } from './utils/dataParser';
-import { cast } from './data/cast';
 import type { CastMember } from './types';
 import './App.css';
 
@@ -15,6 +14,19 @@ function App() {
 
   // Parse season data once
   const seasons = useMemo(() => parseSeasonData(), []);
+
+  // Collect all unique cast members from all seasons (includes placeholders)
+  const allCast = useMemo(() => {
+    const castMap = new Map<string, CastMember>();
+    seasons.forEach(season => {
+      season.cast.forEach(member => {
+        if (!castMap.has(member.name)) {
+          castMap.set(member.name, member);
+        }
+      });
+    });
+    return Array.from(castMap.values());
+  }, [seasons]);
 
   // Calculate current and next season indices and transition progress
   const currentSeasonIndex = Math.floor(scrollProgress);
@@ -89,7 +101,8 @@ function App() {
       </div>
 
       <AllCastView
-        allCast={cast}
+        allCast={allCast}
+        seasons={seasons}
         currentSeason={currentSeason}
         nextSeason={nextSeason}
         transitionProgress={transitionProgress}

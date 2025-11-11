@@ -1,7 +1,7 @@
 .cast-member {
   position: absolute;
   transform: translate(-50%, -50%);
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .cast-member-photo {
@@ -10,8 +10,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: box-shadow 0.2s ease, border-color 0.05s linear, transform 0.2s ease;
   pointer-events: auto;
-  cursor: pointer;
-  touch-action: pan-y;
+  touch-action: auto;
 }
 
 .cast-member-photo.no-photo {
@@ -40,8 +39,14 @@
 }
 
 @media (max-width: 767px) {
+  .cast-member {
+    pointer-events: auto;
+  }
+
   .cast-member-photo {
     border-width: 2px;
+    pointer-events: auto;
+    touch-action: pan-y;
   }
 
   .cast-member-photo.no-photo {
@@ -55,9 +60,11 @@
   }
 }
 
-.cast-member-photo:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+@media (hover: hover) and (pointer: fine) {
+  .cast-member-photo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  }
 }
 
 .cast-member-tooltip {

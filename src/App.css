@@ -17,7 +17,7 @@
 
 .season-number {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   font-size: 48px;
   font-weight: 700;
   color: #ffffff;
@@ -37,12 +37,16 @@
   overflow: hidden;
   height: 58px;
   min-width: 50px;
+  margin-left: 8px;
 }
 
 .season-number-value {
   position: absolute;
   top: 0;
   left: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 58px;
   will-change: transform, opacity;
 }
 
@@ -78,6 +82,12 @@
   .season-number-container {
     height: 40px;
     min-width: 35px;
+    margin-left: 6px;
+  }
+
+  .season-number-value {
+    font-size: 32px;
+    line-height: 40px;
   }
 
   .season-year-container {

@@ -3,23 +3,59 @@ import { seasonsData } from '../data/seasons';
 import type { CastMember, SeasonWithCast } from '../types';
 
 /**
+ * Parses cast names from a comma-separated string and matches them to cast member records
+ * Creates placeholder records for names not found in cast.ts
+ */
+function parseCastNames(castString: string): CastMember[] {
+  if (!castString) return [];
+
+  // Split by comma and clean up each name
+  const names = castString
+    .split(',')
+    .map(name => name.trim())
+    .filter(name => name.length > 0);
+
+  // Match names to cast member records, create placeholders if not found
+  const castMembers: CastMember[] = [];
+  for (const name of names) {
+    const member = cast.find(c => c.name === name);
+    if (member) {
+      castMembers.push(member);
+    } else {
+      // Create placeholder cast member for names not in cast.ts
+      console.warn(`Cast member not found in cast.ts: ${name} - creating placeholder`);
+      castMembers.push({
+        name,
+        status: 'a',
+        url: '',
+        season: 1,
+        season_start: 1975,
+        gender: undefined,
+        total_seasons: 1,
+        cat: 'unknown',
+        period: 0,
+        color: '#888888',
+        bio: ''
+      });
+    }
+  }
+
+  return castMembers;
+}
+
+/**
  * Parses cast data and organizes it by season with transition information
+ * Uses seasons.csv as the source of truth for which cast members are in each season
  */
 export function parseSeasonData(): SeasonWithCast[] {
-  // Get unique season numbers and sort them
-  const seasonNumbers = [...new Set(cast.map(c => c.season))].sort((a, b) => a - b);
-
   const seasons: SeasonWithCast[] = [];
 
-  for (let i = 0; i < seasonNumbers.length; i++) {
-    const seasonNum = seasonNumbers[i];
+  for (let i = 0; i < seasonsData.length; i++) {
+    const seasonData = seasonsData[i];
+    const seasonNum = seasonData.season;
 
-    // Get all cast members who were in this season
-    const seasonCast = cast.filter(member => {
-      const firstSeason = member.season;
-      const lastSeason = firstSeason + member.total_seasons - 1;
-      return seasonNum >= firstSeason && seasonNum <= lastSeason;
-    });
+    // Parse cast members from seasons.csv cast field
+    const seasonCast = parseCastNames(seasonData.cast || '');
 
     // Get previous season's cast
     const prevSeasonCast = i > 0 ? seasons[i - 1].cast : [];
@@ -42,9 +78,6 @@ export function parseSeasonData(): SeasonWithCast[] {
     const yearStart = 1975 + (seasonNum - 1);
     const yearEnd = yearStart + 1;
 
-    // Get season metadata from seasonsData
-    const seasonData = seasonsData.find(s => s.season === seasonNum);
-
     seasons.push({
       season: seasonNum,
       year: `${yearStart}-${yearEnd}`,
@@ -54,10 +87,10 @@ export function parseSeasonData(): SeasonWithCast[] {
       newCast,
       departingCast,
       continuingCast,
-      anchors: seasonData?.anchors || '',
-      hosts: seasonData?.hosts || '',
-      music: seasonData?.music || '',
-      sketches: seasonData?.sketches || ''
+      anchors: seasonData.anchors || '',
+      hosts: seasonData.hosts || '',
+      music: seasonData.music || '',
+      sketches: seasonData.sketches || ''
     });
   }
 

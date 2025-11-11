@@ -21,24 +21,46 @@ export function clearPositionCache(): void {
 
 /**
  * Determines if a cast member is before, during, or after a given season
+ * Uses season cast data from seasons.ts as the source of truth
  */
-function getCastState(member: CastMember, seasonNumber: number): CastState {
-  const firstSeason = member.season;
-  const lastSeason = member.season + member.total_seasons - 1;
+function getCastState(
+  member: CastMember,
+  seasonNumber: number,
+  seasonCastMap: Map<number, Set<string>>
+): CastState {
+  // Check if this member is in the current season according to seasons.ts
+  const seasonCast = seasonCastMap.get(seasonNumber);
+  const isInCurrentSeason = seasonCast?.has(member.name) ?? false;
 
-  if (seasonNumber < firstSeason) {
-    return 'before'; // Season is before they joined
-  } else if (seasonNumber > lastSeason) {
-    return 'after'; // Season is after they left
+  if (isInCurrentSeason) {
+    return 'active';
+  }
+
+  // Determine if they're before or after by checking previous/next seasons
+  // Check if they appear in any earlier season
+  let appearsInEarlierSeason = false;
+  for (let s = 1; s < seasonNumber; s++) {
+    if (seasonCastMap.get(s)?.has(member.name)) {
+      appearsInEarlierSeason = true;
+      break;
+    }
+  }
+
+  if (appearsInEarlierSeason) {
+    return 'after'; // They were in an earlier season, so they've left
   } else {
-    return 'active'; // They're in this season
+    return 'before'; // They haven't appeared yet
   }
 }
 
 /**
  * Groups cast members by their state relative to a season
  */
-function groupCastByState(cast: CastMember[], seasonNumber: number) {
+function groupCastByState(
+  cast: CastMember[],
+  seasonNumber: number,
+  seasonCastMap: Map<number, Set<string>>
+) {
   const groups = {
     before: [] as CastMember[],
     active: [] as CastMember[],
@@ -46,7 +68,7 @@ function groupCastByState(cast: CastMember[], seasonNumber: number) {
   };
 
   cast.forEach(member => {
-    const state = getCastState(member, seasonNumber);
+    const state = getCastState(member, seasonNumber, seasonCastMap);
     groups[state].push(member);
   });
 
@@ -60,7 +82,8 @@ function getOrCreateSeasonPositions(
   cast: CastMember[],
   seasonNumber: number,
   windowWidth: number,
-  windowHeight: number
+  windowHeight: number,
+  seasonCastMap: Map<number, Set<string>>
 ): Map<string, { x: number; y: number }> {
   // Check if we already have cached positions for this season
   if (seasonPositionsCache.has(seasonNumber)) {
@@ -73,7 +96,7 @@ function getOrCreateSeasonPositions(
   const middleX = windowWidth * 0.5;
   const rightX = windowWidth + 100; // Off-screen to the right
 
-  const groups = groupCastByState(cast, seasonNumber);
+  const groups = groupCastByState(cast, seasonNumber, seasonCastMap);
   const positionMap = new Map<string, { x: number; y: number }>();
 
   // Ensure previous season is calculated first to maintain continuity
@@ -81,7 +104,7 @@ function getOrCreateSeasonPositions(
   let previousPositions;
   if (previousSeasonNumber >= 1) {
     // Recursively ensure previous season exists
-    previousPositions = getOrCreateSeasonPositions(cast, previousSeasonNumber, windowWidth, windowHeight);
+    previousPositions = getOrCreateSeasonPositions(cast, previousSeasonNumber, windowWidth, windowHeight, seasonCastMap);
   }
 
   let activePositions;
@@ -92,7 +115,7 @@ function getOrCreateSeasonPositions(
 
     groups.active.forEach(member => {
       const prevPos = previousPositions.get(member.name);
-      const prevState = previousSeasonNumber >= 0 ? getCastState(member, previousSeasonNumber) : 'before';
+      const prevState = previousSeasonNumber >= 0 ? getCastState(member, previousSeasonNumber, seasonCastMap) : 'before';
 
       // If they were active in previous season AND have a cached position, they're continuing
       if (prevPos && prevState === 'active') {
@@ -245,7 +268,8 @@ export function calculateCastPositions(
   cast: CastMember[],
   currentSeasonNumber: number,
   nextSeasonNumber: number,
-  transitionProgress: number
+  transitionProgress: number,
+  seasonCastMap: Map<number, Set<string>>
 ): CastPositionResult[] {
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
@@ -253,8 +277,8 @@ export function calculateCastPositions(
   const middleX = windowWidth * 0.5;
 
   // Get or create cached positions for current and next season
-  const currentPosMap = getOrCreateSeasonPositions(cast, currentSeasonNumber, windowWidth, windowHeight);
-  const nextPosMap = getOrCreateSeasonPositions(cast, nextSeasonNumber, windowWidth, windowHeight);
+  const currentPosMap = getOrCreateSeasonPositions(cast, currentSeasonNumber, windowWidth, windowHeight, seasonCastMap);
+  const nextPosMap = getOrCreateSeasonPositions(cast, nextSeasonNumber, windowWidth, windowHeight, seasonCastMap);
 
   // Interpolate positions based on transition progress
   const result = cast.map(member => {
