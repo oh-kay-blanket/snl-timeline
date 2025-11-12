@@ -6,11 +6,18 @@
 
 .cast-member-photo {
   border-radius: 50%;
-  border: 3px solid;
+  border: 1px solid;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.2s ease, border-color 0.05s linear, transform 0.2s ease;
   pointer-events: auto;
   touch-action: auto;
+  position: relative;
+}
+
+.cast-member-name-svg-text {
+  font-size: 12px;
+  font-weight: 600;
+  fill: white;
+  paint-order: stroke fill;
 }
 
 .cast-member-photo.no-photo {
@@ -58,51 +65,8 @@
     font-size: 8px;
     padding: 2px;
   }
-}
 
-@media (hover: hover) and (pointer: fine) {
-  .cast-member-photo:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-  }
-}
-
-.cast-member-tooltip {
-  position: absolute;
-  bottom: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 101;
-}
-
-.tooltip-name {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.tooltip-info {
-  font-size: 12px;
-  color: #aaa;
-}
-
-@media (max-width: 767px) {
-  .cast-member-tooltip {
-    padding: 6px 10px;
-    bottom: -40px;
-  }
-
-  .tooltip-name {
-    font-size: 12px;
-  }
-
-  .tooltip-info {
-    font-size: 11px;
+  .cast-member-name-svg-text {
+    font-size: 10px;
   }
 }

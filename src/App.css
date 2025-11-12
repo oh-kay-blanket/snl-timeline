@@ -36,7 +36,7 @@
   display: inline-block;
   overflow: hidden;
   height: 58px;
-  min-width: 50px;
+  min-width: 65px;
   margin-left: 8px;
 }
 
@@ -81,7 +81,7 @@
 
   .season-number-container {
     height: 40px;
-    min-width: 35px;
+    min-width: 45px;
     margin-left: 6px;
   }
 

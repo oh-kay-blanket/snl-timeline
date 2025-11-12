@@ -134,8 +134,8 @@ function getOrCreateSeasonPositions(
 
     // Only cluster new cast if there are any
     if (newCast.length > 0) {
-      // Cluster new cast with fewer iterations to minimize disruption
-      const newPositions = clusterCastMembers(newCast, middleX, centerY, 150);
+      // Cluster new cast with iterations to find tight non-overlapping positions
+      const newPositions = clusterCastMembers(newCast, middleX, centerY, 400);
 
       // Run a light settling phase with all cast to prevent overlaps
       // but anchor continuing cast to their positions
@@ -149,10 +149,12 @@ function getOrCreateSeasonPositions(
       // Adjust spacing based on viewport
       const isMobile = windowWidth < 768;
       const CIRCLE_RADIUS = isMobile ? 30 : 40;
-      const SPACING = isMobile ? 10 : 15;
+      const NAME_CLEARANCE = isMobile ? 20 : 25; // Extra clearance for SVG curved text around photo
+      const HORIZONTAL_SPACING = isMobile ? 4 : 5; // Horizontal spacing between circles
+      const VERTICAL_SPACING = isMobile ? 6 : 8; // Vertical spacing to account for text above/below
 
-      // Light settling - only 50 iterations, continuing cast strongly anchored
-      for (let iter = 0; iter < 50; iter++) {
+      // Light settling - increased iterations for better separation
+      for (let iter = 0; iter < 200; iter++) {
         allPositions.forEach(p => { p.vx = 0; p.vy = 0; });
 
         // Repulsion between all pairs
@@ -162,19 +164,29 @@ function getOrCreateSeasonPositions(
             const p2 = allPositions[j];
             const dx = p2.x - p1.x;
             const dy = p2.y - p1.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const minDistance = (CIRCLE_RADIUS + SPACING) * 2;
+            const distanceX = Math.abs(dx);
+            const distanceY = Math.abs(dy);
 
-            if (distance < minDistance && distance > 0) {
-              const overlap = minDistance - distance;
-              const force = overlap * 2;
-              const fx = (dx / distance) * force;
-              const fy = (dy / distance) * force;
+            // Minimum distances accounting for photo + circular text clearance
+            const minHorizontalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + HORIZONTAL_SPACING;
+            const minVerticalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + VERTICAL_SPACING;
 
-              p1.vx -= fx;
-              p1.vy -= fy;
-              p2.vx += fx;
-              p2.vy += fy;
+            // Check for overlap using rectangular bounds
+            const overlapX = minHorizontalDistance - distanceX;
+            const overlapY = minVerticalDistance - distanceY;
+
+            // Gentle repulsion force if overlapping
+            if (overlapX > 0 && overlapY > 0) {
+              const forceX = overlapX * 2.0;
+              const forceY = overlapY * 2.0;
+
+              const signX = dx > 0 ? 1 : -1;
+              const signY = dy > 0 ? 1 : -1;
+
+              p1.vx -= signX * forceX;
+              p1.vy -= signY * forceY;
+              p2.vx += signX * forceX;
+              p2.vy += signY * forceY;
             }
           }
 
@@ -237,7 +249,7 @@ function getOrCreateSeasonPositions(
     }
   } else {
     // No previous season - cluster all from scratch
-    activePositions = clusterCastMembers(groups.active, middleX, centerY, 300);
+    activePositions = clusterCastMembers(groups.active, middleX, centerY, 500);
   }
 
   // Add active positions

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import type { CastMember as CastMemberType } from '../types';
 import { getSpriteStyle } from '../utils/sprites';
 import { getCastMemberSpriteKey } from '../utils/dataParser';
@@ -13,7 +13,6 @@ interface CastMemberProps {
 }
 
 export default function CastMember({ member, x, y, isActive: _isActive = false, onClick }: CastMemberProps) {
-  const [isHovered, setIsHovered] = useState(false);
   const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
   // Use smaller photos on mobile
@@ -31,19 +30,6 @@ export default function CastMember({ member, x, y, isActive: _isActive = false, 
   // Only allow clicking if member has bio information
   const hasBio = member.bio && member.bio.length > 0;
   const handleClick = hasBio ? onClick : undefined;
-
-  // Only enable hover behavior on non-mobile devices
-  const handleMouseEnter = () => {
-    if (!isMobile) {
-      setIsHovered(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isMobile) {
-      setIsHovered(false);
-    }
-  };
 
   // Mobile tap detection
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -73,13 +59,25 @@ export default function CastMember({ member, x, y, isActive: _isActive = false, 
     touchStartRef.current = null;
   };
 
+  // Split name into first name and rest
+  const nameParts = member.name.split(' ');
+  const firstName = nameParts[0] || '';
+  const lastName = nameParts.slice(1).join(' ');
+
+  // Radius for text positioning (photo radius + offset to clear border)
+  const borderWidth = isMobile ? 2 : 3;
+  const topTextClearance = 1; // More clearance for top text
+  const bottomTextClearance = 0; // Less clearance for bottom text
+
+  const topTextRadius = photoSize / 2 + borderWidth + topTextClearance;
+  const bottomTextRadius = (photoSize / 1.5 + borderWidth + bottomTextClearance) * .95; // Larger radius for flatter curve
+
   return (
     <div
-      className={`cast-member ${isHovered ? 'hovered' : ''}`}
+      className="cast-member"
       style={{
         left: `${x}px`,
         top: `${y}px`,
-        zIndex: isHovered ? 100 : 'auto',
       }}
     >
       <div
@@ -89,22 +87,70 @@ export default function CastMember({ member, x, y, isActive: _isActive = false, 
           borderColor,
           cursor: hasBio ? 'pointer' : 'default',
         }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         onClick={handleClick}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         {!hasSprite && <span className="cast-member-name-text">{member.name}</span>}
       </div>
-      {isHovered && (
-        <div className="cast-member-tooltip">
-          <div className="tooltip-name">{member.name}</div>
-          <div className="tooltip-info">
-            {member.total_seasons} season{member.total_seasons !== 1 ? 's' : ''}
-          </div>
-        </div>
-      )}
+
+      {/* SVG circular text */}
+      <svg
+        className="cast-member-name-svg"
+        width={photoSize * 3}
+        height={photoSize * 3}
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'none',
+          overflow: 'visible',
+        }}
+      >
+        <defs>
+          {/* Top arc path (curved upward) */}
+          <path
+            id={`top-arc-${member.name.replace(/\s/g, '-')}`}
+            d={`M ${photoSize * 1.5 - topTextRadius} ${photoSize * 1.5} A ${topTextRadius} ${topTextRadius} 0 0 1 ${photoSize * 1.5 + topTextRadius} ${photoSize * 1.5}`}
+            fill="none"
+          />
+          {/* Bottom arc path (curved downward) */}
+          <path
+            id={`bottom-arc-${member.name.replace(/\s/g, '-')}`}
+            d={`M ${photoSize * 1.5 - bottomTextRadius} ${photoSize * 1.5} A ${bottomTextRadius} ${bottomTextRadius} 0 0 0 ${photoSize * 1.5 + bottomTextRadius} ${photoSize * 1.5}`}
+            fill="none"
+          />
+        </defs>
+
+        {/* First name on top arc */}
+        {firstName && (
+          <text className="cast-member-name-svg-text">
+            <textPath
+              href={`#top-arc-${member.name.replace(/\s/g, '-')}`}
+              startOffset="50%"
+              textAnchor="middle"
+              letterSpacing={isMobile ? '0.35em' : '0.35em'}
+            >
+              {firstName}
+            </textPath>
+          </text>
+        )}
+
+        {/* Last name on bottom arc */}
+        {lastName && (
+          <text className="cast-member-name-svg-text">
+            <textPath
+              href={`#bottom-arc-${member.name.replace(/\s/g, '-')}`}
+              startOffset="50%"
+              textAnchor="middle"
+              letterSpacing={isMobile ? '0.35em' : '0.35em'}
+            >
+              {lastName}
+            </textPath>
+          </text>
+        )}
+      </svg>
     </div>
   );
 }

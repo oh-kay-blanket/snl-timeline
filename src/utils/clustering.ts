@@ -17,6 +17,9 @@ export function getSafeBounds(circleRadius: number) {
   // Base margin from screen edges
   const edgeMargin = isMobile ? 40 : 80;
 
+  // Extra clearance for SVG curved text around photo
+  const nameClearance = isMobile ? 20 : 25;
+
   // Timeline on left side (20px position + 40px width + padding)
   const timelineWidth = isMobile ? 30 : 40;
   const timelineLeft = isMobile ? 10 : 20;
@@ -28,16 +31,19 @@ export function getSafeBounds(circleRadius: number) {
   const seasonTitleWidth = isMobile ? 200 : 350;
   const seasonTitleHeight = isMobile ? 80 : 150;
 
+  // Keep cast below the season title area entirely
+  const seasonTitleBottom = seasonTitleTop + seasonTitleHeight;
+
   return {
     minX: Math.max(edgeMargin, timelineRight) + circleRadius,
     maxX: windowWidth - edgeMargin - circleRadius,
-    minY: edgeMargin + circleRadius,
-    maxY: windowHeight - edgeMargin - circleRadius,
+    minY: Math.max(edgeMargin + circleRadius, seasonTitleBottom + circleRadius + 20), // Keep below season title across entire width
+    maxY: windowHeight - edgeMargin - circleRadius - nameClearance, // Account for circular text clearance
     seasonTitleBox: {
       left: seasonTitleLeft,
       right: seasonTitleLeft + seasonTitleWidth,
       top: seasonTitleTop,
-      bottom: seasonTitleTop + seasonTitleHeight
+      bottom: seasonTitleBottom
     }
   };
 }
@@ -71,7 +77,9 @@ export function clusterCastMembers(
   // Adjust sizing based on viewport
   const isMobile = window.innerWidth < 768;
   const CIRCLE_RADIUS = isMobile ? 30 : 40; // Radius of each cast member circle
-  const SPACING = isMobile ? 10 : 15; // Additional spacing between circles
+  const NAME_CLEARANCE = isMobile ? 20 : 25; // Extra clearance for SVG curved text around photo
+  const HORIZONTAL_SPACING = isMobile ? 4 : 5; // Horizontal spacing between circles
+  const VERTICAL_SPACING = isMobile ? 6 : 8; // Vertical spacing to account for text above/below
 
   // Get safe bounds
   const bounds = getSafeBounds(CIRCLE_RADIUS);
@@ -112,20 +120,30 @@ export function clusterCastMembers(
 
         const dx = p2.x - p1.x;
         const dy = p2.y - p1.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const minDistance = (CIRCLE_RADIUS + SPACING) * 2;
+        const distanceX = Math.abs(dx);
+        const distanceY = Math.abs(dy);
 
-        // Strong repulsion force if too close
-        if (distance < minDistance && distance > 0) {
-          const overlap = minDistance - distance;
-          const force = overlap * 3; // Even stronger force to prevent overlap
-          const fx = (dx / distance) * force;
-          const fy = (dy / distance) * force;
+        // Minimum distances accounting for photo + circular text clearance
+        const minHorizontalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + HORIZONTAL_SPACING;
+        const minVerticalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + VERTICAL_SPACING;
 
-          p1.vx -= fx;
-          p1.vy -= fy;
-          p2.vx += fx;
-          p2.vy += fy;
+        // Check for overlap using rectangular bounds
+        const overlapX = minHorizontalDistance - distanceX;
+        const overlapY = minVerticalDistance - distanceY;
+
+        // Gentle repulsion force if overlapping
+        if (overlapX > 0 && overlapY > 0) {
+          // Calculate repulsion force based on amount of overlap
+          const forceX = overlapX * 2.5;
+          const forceY = overlapY * 2.5;
+
+          const signX = dx > 0 ? 1 : -1;
+          const signY = dy > 0 ? 1 : -1;
+
+          p1.vx -= signX * forceX;
+          p1.vy -= signY * forceY;
+          p2.vx += signX * forceX;
+          p2.vy += signY * forceY;
         }
       }
 
@@ -136,7 +154,7 @@ export function clusterCastMembers(
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance > 0) {
-        const force = distance / 400; // Much stronger attraction to center
+        const force = distance / 100; // Very strong attraction to center for tight clustering
         p.vx += (dx / distance) * force;
         p.vy += (dy / distance) * force;
       }
