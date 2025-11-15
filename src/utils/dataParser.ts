@@ -118,7 +118,8 @@ export function parseAnchorNames(anchorsString: string): string[] {
  * Gets a cast member's sprite filename
  */
 export function getCastMemberSpriteKey(name: string): string {
-  return name.toLowerCase().replace(/['\s]/g, '-').replace(/--+/g, '-') + ' bw.png';
+  // Match Python's name_to_slug logic: remove periods and apostrophes, replace spaces with dashes
+  return name.toLowerCase().replace(/\./g, '').replace(/'/g, '').replace(/\s+/g, '-') + ' bw.png';
 }
 
 /**
