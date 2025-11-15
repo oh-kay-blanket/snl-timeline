@@ -6,7 +6,7 @@ import { heads200 } from '../data/sprites200';
 export const SPRITE_IMAGE_PATH = '/images/snl-sprites-200.png';
 export const SPRITE_SIZE = 200;
 
-// Legacy 96px sprites (can be used if needed)
+// Alternative 96px sprites (can be used if needed)
 export const SPRITE_IMAGE_PATH_96 = '/images/snl-sprites.png';
 export const SPRITE_SIZE_96 = 96;
 
