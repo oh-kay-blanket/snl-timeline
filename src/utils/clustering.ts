@@ -74,38 +74,55 @@ export function clusterCastMembers(
   centerY: number,
   iterations: number = 300
 ): ClusteredPosition[] {
-  // Adjust sizing based on viewport
+  // Adjust sizing based on viewport and cast count
   const isMobile = window.innerWidth < 768;
-  const CIRCLE_RADIUS = isMobile ? 30 : 40; // Radius of each cast member circle
-  const NAME_CLEARANCE = isMobile ? 20 : 25; // Extra clearance for SVG curved text around photo
-  const HORIZONTAL_SPACING = isMobile ? 4 : 5; // Horizontal spacing between circles
-  const VERTICAL_SPACING = isMobile ? 6 : 8; // Vertical spacing to account for text above/below
+  const castCount = members.length;
+
+  // Circle radius matches photo sizing in CastMember component
+  const CIRCLE_RADIUS = isMobile ? 25 : 40;
+  const NAME_CLEARANCE = isMobile ? 25 : 32; // Extra clearance for SVG curved text around photo
+  const HORIZONTAL_SPACING = isMobile ? 6 : 8; // Horizontal spacing between circles
+  const VERTICAL_SPACING = isMobile ? 8 : 12; // Vertical spacing to account for text above/below
 
   // Get safe bounds
   const bounds = getSafeBounds(CIRCLE_RADIUS);
 
-  // Calculate safe cluster radius based on viewport - keep cast members visible
-  const viewportPadding = CIRCLE_RADIUS + 50; // Extra padding from edges
+  // Increase base radius for very large casts to prevent overcrowding
+  const baseRadius = isMobile ? 150 : 200;
+  const scaleFactor = Math.sqrt(castCount / 10); // Scale based on cast density
+  const looseness = castCount < 6 ? 1.3 : (castCount > 15 ? 1.2 : 1.0); // More space for large groups
+
+  const viewportPadding = CIRCLE_RADIUS + 30; // Reduced padding for more space
   const maxDistanceX = Math.min(centerX - viewportPadding, window.innerWidth - centerX - viewportPadding);
   const maxDistanceY = Math.min(centerY - viewportPadding, window.innerHeight - centerY - viewportPadding);
-  const CLUSTER_RADIUS = Math.min(200, maxDistanceX, maxDistanceY); // Keep within bounds
 
-  // Initialize positions randomly within cluster radius
+  // Create organic ellipse (wider than tall) for better space usage
+  const CLUSTER_RADIUS_X = Math.min(baseRadius * scaleFactor * looseness * 1.3, maxDistanceX);
+  const CLUSTER_RADIUS_Y = Math.min(baseRadius * scaleFactor * looseness * 1.0, maxDistanceY);
+
+  // Scale iterations with cast size for better convergence
+  const adjustedIterations = Math.max(iterations, castCount * 20);
+
+  // Initialize positions randomly within elliptical cluster
   const positions = members.map((member) => {
     const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * CLUSTER_RADIUS;
+    const distance = Math.random();
+
+    // Add subtle random offset to prevent perfect grid alignment
+    const randomOffsetX = (Math.random() - 0.5) * 10;
+    const randomOffsetY = (Math.random() - 0.5) * 10;
 
     return {
       member,
-      x: centerX + Math.cos(angle) * distance,
-      y: centerY + Math.sin(angle) * distance,
+      x: centerX + Math.cos(angle) * distance * CLUSTER_RADIUS_X + randomOffsetX,
+      y: centerY + Math.sin(angle) * distance * CLUSTER_RADIUS_Y + randomOffsetY,
       vx: 0,
       vy: 0,
     };
   });
 
   // Run force simulation with more iterations for better separation
-  for (let iter = 0; iter < iterations; iter++) {
+  for (let iter = 0; iter < adjustedIterations; iter++) {
     // Reset velocities
     positions.forEach((p) => {
       p.vx = 0;
@@ -120,41 +137,36 @@ export function clusterCastMembers(
 
         const dx = p2.x - p1.x;
         const dy = p2.y - p1.y;
-        const distanceX = Math.abs(dx);
-        const distanceY = Math.abs(dy);
 
-        // Minimum distances accounting for photo + circular text clearance
-        const minHorizontalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + HORIZONTAL_SPACING;
-        const minVerticalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + VERTICAL_SPACING;
+        // Use circular collision detection for more accurate overlap checking
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const minDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + Math.max(HORIZONTAL_SPACING, VERTICAL_SPACING);
 
-        // Check for overlap using rectangular bounds
-        const overlapX = minHorizontalDistance - distanceX;
-        const overlapY = minVerticalDistance - distanceY;
+        if (distance < minDistance && distance > 0) {
+          // Calculate repulsion force inversely proportional to distance
+          const overlap = minDistance - distance;
+          const force = overlap * 3.0; // Stronger force for better separation
 
-        // Gentle repulsion force if overlapping
-        if (overlapX > 0 && overlapY > 0) {
-          // Calculate repulsion force based on amount of overlap
-          const forceX = overlapX * 2.5;
-          const forceY = overlapY * 2.5;
+          const normalizedDx = dx / distance;
+          const normalizedDy = dy / distance;
 
-          const signX = dx > 0 ? 1 : -1;
-          const signY = dy > 0 ? 1 : -1;
-
-          p1.vx -= signX * forceX;
-          p1.vy -= signY * forceY;
-          p2.vx += signX * forceX;
-          p2.vy += signY * forceY;
+          p1.vx -= normalizedDx * force;
+          p1.vy -= normalizedDy * force;
+          p2.vx += normalizedDx * force;
+          p2.vy += normalizedDy * force;
         }
       }
 
-      // Stronger attraction to center (keeps cluster tighter)
+      // Attraction to center (keeps cluster together but not too rigid)
       const p = positions[i];
       const dx = centerX - p.x;
       const dy = centerY - p.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance > 0) {
-        const force = distance / 100; // Very strong attraction to center for tight clustering
+        // Gentler attraction for more organic feel, stronger for small groups
+        const attractionStrength = castCount < 6 ? 80 : 120;
+        const force = distance / attractionStrength;
         p.vx += (dx / distance) * force;
         p.vy += (dy / distance) * force;
       }

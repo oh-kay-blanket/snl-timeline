@@ -55,6 +55,7 @@ export function parseSeasonData(): SeasonWithCast[] {
     const seasonNum = seasonData.season;
 
     // Parse cast members from seasons.csv cast field
+    // Season data comes directly from cast.csv now
     const seasonCast = parseCastNames(seasonData.cast || '');
 
     // Get previous season's cast
@@ -88,6 +89,7 @@ export function parseSeasonData(): SeasonWithCast[] {
       departingCast,
       continuingCast,
       anchors: seasonData.anchors || '',
+      summary: seasonData.summary || '',
       hosts: seasonData.hosts || '',
       music: seasonData.music || '',
       sketches: seasonData.sketches || ''

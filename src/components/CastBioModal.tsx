@@ -51,6 +51,11 @@ export default function CastBioModal({ member, onClose }: CastBioModalProps) {
         </div>
 
         <div className="modal-body">
+          {member.bio && (
+            <div className="bio-section">
+              <p>{member.bio}</p>
+            </div>
+          )}
           <div className="info-row">
             <span className="info-label">First Season:</span>
             <span className="info-value">Season {member.season} ({member.season_start})</span>
@@ -59,24 +64,6 @@ export default function CastBioModal({ member, onClose }: CastBioModalProps) {
             <span className="info-label">Total Seasons:</span>
             <span className="info-value">{member.total_seasons}</span>
           </div>
-          <div className="info-row">
-            <span className="info-label">Status:</span>
-            <span className="info-value">{member.status === 'a' ? 'Alumni' : 'Current'}</span>
-          </div>
-          {member.bio && (
-            <div className="bio-section">
-              <h3>Biography</h3>
-              <p>{member.bio}</p>
-            </div>
-          )}
-          <a
-            href={member.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="archive-link"
-          >
-            View SNL Archives →
-          </a>
         </div>
       </div>
     </div>

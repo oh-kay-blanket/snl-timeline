@@ -18,9 +18,10 @@ for (let i = 1; i < lines.length; i++) {
     year: values[1],
     cast: values[2],
     anchors: values[3] || '',
-    hosts: values[4] || '',
-    music: values[5] || '',
-    sketches: values[6] || ''
+    summary: values[4] || '',
+    hosts: values[5] || '',
+    music: values[6] || '',
+    sketches: values[7] || ''
   };
   seasons.push(season);
 }

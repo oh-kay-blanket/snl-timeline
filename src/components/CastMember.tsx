@@ -9,15 +9,16 @@ interface CastMemberProps {
   x: number;
   y: number;
   isActive?: boolean;
+  castCount?: number;
   onClick?: () => void;
 }
 
-export default function CastMember({ member, x, y, isActive: _isActive = false, onClick }: CastMemberProps) {
+export default function CastMember({ member, x, y, isActive: _isActive = false, castCount = 0, onClick }: CastMemberProps) {
   const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
-  // Use smaller photos on mobile
+  // Consistent photo sizing based on screen size
   const isMobile = window.innerWidth < 768;
-  const photoSize = isMobile ? 60 : 80;
+  const photoSize = isMobile ? 50 : 80;
 
   const spriteKey = getCastMemberSpriteKey(member.name);
   const spriteStyle = getSpriteStyle(spriteKey, photoSize);

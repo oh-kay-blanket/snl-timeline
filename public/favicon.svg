@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background - matching app dark theme -->
+  <rect width="32" height="32" rx="4" fill="#2a2a2a"/>
+
+  <!-- SNL Text - matching app font style -->
+  <text
+    x="16"
+    y="21"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    font-size="14"
+    font-weight="700"
+    text-anchor="middle"
+    fill="#ffffff"
+    letter-spacing="0.5"
+  >SNL</text>
+
+  <!-- Timeline indicator (small dots at bottom) -->
+  <circle cx="8" cy="28" r="1" fill="#ffffff" opacity="0.6"/>
+  <circle cx="16" cy="28" r="1" fill="#ffffff" opacity="0.9"/>
+  <circle cx="24" cy="28" r="1" fill="#ffffff" opacity="0.6"/>
+</svg>

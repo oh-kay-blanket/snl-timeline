@@ -14,9 +14,12 @@ lines.forEach(line => {
     const id = parts[0]?.trim();
     const name = parts[1]?.trim();
     const bio = parts[2]?.trim() || '';
+    const season = parts[3] ? parseInt(parts[3].trim()) : 1;
+    const season_start = parts[4] ? parseInt(parts[4].trim()) : 1975;
+    const total_seasons = parts[5] ? parseInt(parts[5].trim()) : 1;
 
     if (name) {
-      castMembers.push({ id, name, bio });
+      castMembers.push({ id, name, bio, season, season_start, total_seasons });
     }
   }
 });
@@ -37,10 +40,10 @@ castMembers.forEach(member => {
     name: ${name},
     status: 'a',
     url: '',
-    season: 1,
-    season_start: 1975,
+    season: ${member.season},
+    season_start: ${member.season_start},
     gender: undefined,
-    total_seasons: 1,
+    total_seasons: ${member.total_seasons},
     cat: 'unknown',
     period: 0,
     color: '#888888',

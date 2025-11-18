@@ -2,6 +2,7 @@
   position: absolute;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  /* Position updates are handled by JavaScript scroll interpolation - no CSS transition needed */
 }
 
 .cast-member-photo {
@@ -11,6 +12,17 @@
   pointer-events: auto;
   touch-action: auto;
   position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.cast-member-photo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+.cast-member-photo:active {
+  transform: scale(0.98);
 }
 
 .cast-member-name-svg-text {

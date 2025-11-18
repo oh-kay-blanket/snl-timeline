@@ -1,7 +1,7 @@
 .timeline {
   position: fixed;
   left: 20px;
-  top: 50%;
+  top: calc(81px + 50vh);
   transform: translateY(-50%);
   height: 80vh;
   max-height: 600px;
@@ -64,6 +64,7 @@
 @media (max-width: 767px) {
   .timeline {
     left: 10px;
+    top: calc(49px + 50vh);
     height: 70vh;
     max-height: 500px;
   }

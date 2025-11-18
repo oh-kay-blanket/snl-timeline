@@ -2,15 +2,19 @@ import { useState, useMemo } from 'react';
 import ScrollContainer from './components/ScrollContainer';
 import SeasonView from './components/SeasonView';
 import CastBioModal from './components/CastBioModal';
+import ScrollIndicator from './components/ScrollIndicator';
+import SeasonInfoButton from './components/SeasonInfoButton';
+import SeasonInfoModal from './components/SeasonInfoModal';
 import AllCastView from './components/AllCastView';
 import Timeline from './components/Timeline';
 import { parseSeasonData } from './utils/dataParser';
-import type { CastMember } from './types';
+import type { CastMember, SeasonWithCast } from './types';
 import './App.css';
 
 function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedCast, setSelectedCast] = useState<CastMember | null>(null);
+  const [selectedSeasonInfo, setSelectedSeasonInfo] = useState<SeasonWithCast | null>(null);
 
   // Parse season data once
   const seasons = useMemo(() => parseSeasonData(), []);
@@ -73,6 +77,7 @@ function App() {
               </span>
             )}
           </span>
+          <SeasonInfoButton onClick={() => setSelectedSeasonInfo(currentSeason)} />
         </div>
         <div className="season-year-container">
           {currentSeason && (
@@ -123,6 +128,13 @@ function App() {
         member={selectedCast}
         onClose={() => setSelectedCast(null)}
       />
+
+      <SeasonInfoModal
+        season={selectedSeasonInfo}
+        onClose={() => setSelectedSeasonInfo(null)}
+      />
+
+      <ScrollIndicator scrollProgress={scrollProgress} />
     </div>
   );
 }

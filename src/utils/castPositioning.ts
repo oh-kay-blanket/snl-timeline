@@ -146,12 +146,15 @@ function getOrCreateSeasonPositions(
         isContinuing: continuingCast.some(c => c.name === p.member.name)
       }));
 
-      // Adjust spacing based on viewport
+      // Adjust spacing based on viewport and cast count
       const isMobile = windowWidth < 768;
-      const CIRCLE_RADIUS = isMobile ? 30 : 40;
-      const NAME_CLEARANCE = isMobile ? 20 : 25; // Extra clearance for SVG curved text around photo
-      const HORIZONTAL_SPACING = isMobile ? 4 : 5; // Horizontal spacing between circles
-      const VERTICAL_SPACING = isMobile ? 6 : 8; // Vertical spacing to account for text above/below
+      const totalCastCount = allPositions.length;
+
+      // Circle radius matches photo sizing in CastMember component
+      const CIRCLE_RADIUS = isMobile ? 25 : 40;
+      const NAME_CLEARANCE = isMobile ? 25 : 32; // Extra clearance for SVG curved text around photo
+      const HORIZONTAL_SPACING = isMobile ? 6 : 8; // Horizontal spacing between circles
+      const VERTICAL_SPACING = isMobile ? 8 : 12; // Vertical spacing to account for text above/below
 
       // Light settling - increased iterations for better separation
       for (let iter = 0; iter < 200; iter++) {
@@ -164,33 +167,27 @@ function getOrCreateSeasonPositions(
             const p2 = allPositions[j];
             const dx = p2.x - p1.x;
             const dy = p2.y - p1.y;
-            const distanceX = Math.abs(dx);
-            const distanceY = Math.abs(dy);
 
-            // Minimum distances accounting for photo + circular text clearance
-            const minHorizontalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + HORIZONTAL_SPACING;
-            const minVerticalDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + VERTICAL_SPACING;
+            // Use circular collision detection for more accurate overlap checking
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const minDistance = (CIRCLE_RADIUS * 2) + NAME_CLEARANCE + Math.max(HORIZONTAL_SPACING, VERTICAL_SPACING);
 
-            // Check for overlap using rectangular bounds
-            const overlapX = minHorizontalDistance - distanceX;
-            const overlapY = minVerticalDistance - distanceY;
+            if (distance < minDistance && distance > 0) {
+              // Calculate repulsion force inversely proportional to distance
+              const overlap = minDistance - distance;
+              const force = overlap * 2.5;
 
-            // Gentle repulsion force if overlapping
-            if (overlapX > 0 && overlapY > 0) {
-              const forceX = overlapX * 2.0;
-              const forceY = overlapY * 2.0;
+              const normalizedDx = dx / distance;
+              const normalizedDy = dy / distance;
 
-              const signX = dx > 0 ? 1 : -1;
-              const signY = dy > 0 ? 1 : -1;
-
-              p1.vx -= signX * forceX;
-              p1.vy -= signY * forceY;
-              p2.vx += signX * forceX;
-              p2.vy += signY * forceY;
+              p1.vx -= normalizedDx * force;
+              p1.vy -= normalizedDy * force;
+              p2.vx += normalizedDx * force;
+              p2.vy += normalizedDy * force;
             }
           }
 
-          // Anchor continuing cast to original positions (very strong)
+          // Anchor continuing cast to original positions (gentle for organic drift)
           const p = allPositions[i];
           if (p.isContinuing) {
             const originalPos = previousPositions.get(p.member.name)!;
@@ -198,7 +195,7 @@ function getOrCreateSeasonPositions(
             const dy = originalPos.y - p.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             if (distance > 0) {
-              const force = distance * 0.5; // Strong anchor
+              const force = distance * 0.2; // Gentle anchor allows organic shifting
               p.vx += (dx / distance) * force;
               p.vy += (dy / distance) * force;
             }

@@ -96,6 +96,11 @@ export default function AllCastView({
     return names;
   }, [currentSeason]);
 
+  // Calculate current season's cast count for dynamic sizing
+  const currentSeasonCastCount = useMemo(() => {
+    return currentSeason?.cast.length || 0;
+  }, [currentSeason]);
+
 
   // Calculate Weekend Update badge positions
   // const badgePositions = useMemo(() => {
@@ -150,6 +155,7 @@ export default function AllCastView({
             x={x}
             y={y}
             isActive={activeCastNames.has(member.name)}
+            castCount={currentSeasonCastCount}
             onClick={() => onCastClick?.(member)}
           />
         ))}

@@ -17,6 +17,7 @@ export interface SeasonData {
   year: string;
   cast: string;
   anchors: string;
+  summary: string;
   hosts: string;
   music: string;
   sketches: string;
@@ -36,6 +37,7 @@ export interface SeasonWithCast {
   departingCast: CastMember[];
   continuingCast: CastMember[];
   anchors: string;
+  summary: string;
   hosts: string;
   music: string;
   sketches: string;
