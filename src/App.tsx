@@ -3,7 +3,6 @@ import ScrollContainer from './components/ScrollContainer';
 import SeasonView from './components/SeasonView';
 import CastBioModal from './components/CastBioModal';
 import ScrollIndicator from './components/ScrollIndicator';
-import SeasonInfoButton from './components/SeasonInfoButton';
 import SeasonInfoModal from './components/SeasonInfoModal';
 import AllCastView from './components/AllCastView';
 import Timeline from './components/Timeline';
@@ -77,31 +76,68 @@ function App() {
               </span>
             )}
           </span>
-          <SeasonInfoButton onClick={() => setSelectedSeasonInfo(currentSeason)} />
+          <span className="season-year-inline-container">
+            {currentSeason && (
+              <span
+                className="season-year-inline"
+                style={{
+                  transform: currentTransform,
+                  opacity: currentOpacity
+                }}
+              >
+                ({currentSeason.year})
+              </span>
+            )}
+            {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
+              <span
+                className="season-year-inline"
+                style={{
+                  transform: nextTransform,
+                  opacity: nextOpacity
+                }}
+              >
+                ({nextSeason.year})
+              </span>
+            )}
+          </span>
         </div>
-        <div className="season-year-container">
+        <div
+          className="season-summary-container"
+          onClick={() => setSelectedSeasonInfo(currentSeason)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setSelectedSeasonInfo(currentSeason);
+            }
+          }}
+        >
           {currentSeason && (
             <div
-              className="season-year"
+              className="season-summary"
               style={{
                 transform: currentTransform,
                 opacity: currentOpacity
               }}
             >
-              {currentSeason.year}
+              {currentSeason.summary}
             </div>
           )}
           {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
             <div
-              className="season-year"
+              className="season-summary"
               style={{
                 transform: nextTransform,
                 opacity: nextOpacity
               }}
             >
-              {nextSeason.year}
+              {nextSeason.summary}
             </div>
           )}
+          <svg className="expand-indicator" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
       </div>
 
