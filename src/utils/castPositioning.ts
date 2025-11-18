@@ -148,7 +148,6 @@ function getOrCreateSeasonPositions(
 
       // Adjust spacing based on viewport and cast count
       const isMobile = windowWidth < 768;
-      const totalCastCount = allPositions.length;
 
       // Circle radius matches photo sizing in CastMember component
       const CIRCLE_RADIUS = isMobile ? 25 : 40;

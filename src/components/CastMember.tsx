@@ -13,7 +13,7 @@ interface CastMemberProps {
   onClick?: () => void;
 }
 
-export default function CastMember({ member, x, y, isActive: _isActive = false, castCount = 0, onClick }: CastMemberProps) {
+export default function CastMember({ member, x, y, isActive: _isActive = false, castCount: _castCount = 0, onClick }: CastMemberProps) {
   const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
   // Consistent photo sizing based on screen size
