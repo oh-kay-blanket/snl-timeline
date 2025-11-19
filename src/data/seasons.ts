@@ -195,9 +195,9 @@ export const seasonsData: SeasonData[] = [
   {
     "season": 20,
     "year": "1994-1995",
-    "cast": "Adam Sandler, Chris Elliott, Chris Farley, David Spade, Ellen Cleghorne, Janeane Garofalo, Jay Mohr, Kevin Nealon, Laura Kightlinger, Melanie Hutsell, Michael McKean, Molly Shannon, Morwenna Banks, Norm Macdonald, Tim Meadows",
+    "cast": "Adam Sandler, Chris Elliott, Chris Farley, David Spade, Ellen Cleghorne, Janeane Garofalo, Jay Mohr, Kevin Nealon, Laura Kightlinger, Mark McKinney, Melanie Hutsell, Michael McKean, Molly Shannon, Morwenna Banks, Norm Macdonald, Tim Meadows",
     "anchors": "Kevin Nealon",
-    "summary": "Season twenty (1994-95) was a pivotal rebuilding year. Massive cast turnover brought in Molly Shannon, Will Ferrell, Darrell Hammond, and others, while Sandler, Farley, and Spade remained. Behind the scenes, Michaels was overhauling the show's approach and writer's room. Critics were skeptical of the massive changes. The cultural impact was mixed—established stars like Farley maintained relevance, but the show's overall influence had diminished. This season's struggles led to even more dramatic changes to come.",
+    "summary": "Season twenty (1994-95) is considered one of SNL's worst seasons ever, alongside seasons five and eleven. Following Phil Hartman, Julia Sweeney, and Rob Schneider's departures, the show brought in Chris Elliott and Janeane Garofalo, who quit mid-season citing a toxic, sexist environment and \"juvenile and homophobic\" material. Behind the scenes, there was chaos—Lorne Michaels later said this was the closest he ever came to being fired. Critics savaged the show, culminating in a devastating New York magazine cover story titled \"How 'Saturday Night Live' Became a Grim Joke.\" The cultural impact was disastrous—NBC executives threatened cancellation, and the show's reputation hit rock bottom. This crisis forced the most dramatic overhaul since season six.",
     "hosts": "Quentin Tarantino, Bob Newhart, George Foreman, Roseanne",
     "music": "Bon Jovi, Beastie Boys, Pearl Jam, Green Day",
     "sketches": "Spartan cheerleaders debut, Goth Talk, Gap Girls final season"
@@ -205,9 +205,9 @@ export const seasonsData: SeasonData[] = [
   {
     "season": 21,
     "year": "1995-1996",
-    "cast": "Cheri Oteri, Chris Farley, Chris Kattan, Darrell Hammond, David Koechner, David Spade, Fred Wolf, Mark McKinney, Molly Shannon, Nancy Walls, Norm Macdonald, Tim Meadows, Will Ferrell",
+    "cast": "Cheri Oteri, Chris Kattan, Colin Quinn, Darrell Hammond, David Koechner, David Spade, Fred Wolf, Jim Breuer, Mark McKinney, Molly Shannon, Nancy Walls, Norm Macdonald, Tim Meadows, Will Ferrell",
     "anchors": "Norm Macdonald",
-    "summary": "Season twenty-one (1995-96) saw the controversial departures of Chris Farley, Adam Sandler, and Chris Rock, reportedly due to cost-cutting and creative differences. This gutted the show of its biggest stars. Behind the scenes, there was turmoil and criticism of Michaels' decisions. Critics panned the season as one of the weakest in recent memory. The cultural impact plummeted—the show lost much of its audience and cultural cachet. This low point forced Michaels to fundamentally reconsider the show's approach and invest in the newer cast members.",
+    "summary": "Season twenty-one (1995-96) was a massive rebuilding effort after season twenty's disaster. Nine cast members were fired or left, including Chris Farley and Adam Sandler—controversial firings driven by NBC executives (particularly Don Ohlmeyer) pressuring Michaels to overhaul the show or face cancellation. Only five cast members returned: Norm Macdonald, Mark McKinney, Tim Meadows, Molly Shannon, and David Spade. New hires included Will Ferrell, Cheri Oteri, and Darrell Hammond. Behind the scenes, Michaels drastically reduced the budget and streamlined operations. Critics were cautiously optimistic about the new direction. The cultural impact was modest—the show was stabilizing but needed time to develop new stars. This was a transitional season focused on survival and rebuilding credibility.",
     "hosts": "Mariel Hemingway, Christopher Walken, Dana Carvey, Tom Hanks",
     "music": "Bush, Alanis Morissette, Luscious Jackson, Rage Against the Machine",
     "sketches": "More Cowbell (later rerun), Spartan cheerleaders, Mary Katherine Gallagher debut"
@@ -217,7 +217,7 @@ export const seasonsData: SeasonData[] = [
     "year": "1996-1997",
     "cast": "Ana Gasteyer, Cheri Oteri, Chris Kattan, Chris Parnell, Colin Quinn, Darrell Hammond, Jim Breuer, Mark McKinney, Molly Shannon, Norm Macdonald, Tim Meadows, Tracy Morgan, Will Ferrell",
     "anchors": "Norm Macdonald",
-    "summary": "Season twenty-two (1996-97) began the slow climb back to relevance. Will Ferrell emerged as a star, and the show invested in developing its newer cast. Behind the scenes, there was a renewed focus on sketch quality and character development. Critics remained skeptical but noted improvement. The cultural impact was modest but growing—Ferrell's characters were starting to resonate, and the show was regaining some of its footing. The season proved that SNL could rebuild without relying on outside stars.",
+    "summary": "Season twenty-two (1996-97) began the slow climb back to relevance following season 21's rebuild. Ana Gasteyer and Tracy Morgan joined the cast, while David Spade left after serving as a bridge between eras. Behind the scenes, there was renewed focus on developing the cast that had been brought in the previous year. Critics acknowledged gradual improvement and stronger ensemble work. The cultural impact was growing—the show leaned heavily on recurring characters like the Spartan Cheerleaders and Celebrity Jeopardy, which became popular. Notably, seven former cast members returned to host this season (Dana Carvey, Chris Rock, Robert Downey Jr., Phil Hartman, Martin Short, Chevy Chase, and Mike Myers), signaling the show's attempt to reconnect with past glory while building its future.",
     "hosts": "Tom Hanks, Robert Downey Jr., Mike Myers, Sting, David Alan Grier",
     "music": "Beck, Jewel, The Wallflowers, No Doubt, Metallica",
     "sketches": "Spartan cheerleaders, Mary Katherine Gallagher, The Roxbury Guys"
@@ -226,8 +226,8 @@ export const seasonsData: SeasonData[] = [
     "season": 23,
     "year": "1997-1998",
     "cast": "Ana Gasteyer, Cheri Oteri, Chris Kattan, Chris Parnell, Colin Quinn, Darrell Hammond, Jim Breuer, Molly Shannon, Tim Meadows, Tracy Morgan, Will Ferrell",
-    "anchors": "Norm Macdonald, Colin Quinn",
-    "summary": "Season twenty-three (1997-98) continued the upward trajectory with Will Ferrell, Molly Shannon, and Darrell Hammond anchoring the show. Behind the scenes, confidence was returning, and the writers' room was producing stronger material. Critics acknowledged the improvement, praising the ensemble's chemistry. The cultural impact was growing—characters like the Spartan Cheerleaders and Celebrity Jeopardy were entering the zeitgeist. SNL was proving it could thrive with a cast of relative unknowns who were given time to develop.",
+    "anchors": "Colin Quinn",
+    "summary": "Season twenty-three (1997-98) was marked by tragedy and controversy. Chris Farley hosted in October 1997 and died two months later; Phil Hartman was murdered by his wife shortly after the season finale. Behind the scenes, the most significant event was NBC executive Don Ohlmeyer forcing Norm Macdonald off Weekend Update mid-season (December 1997), reportedly due to Macdonald's relentless O.J. Simpson jokes—Ohlmeyer was Simpson's friend. Writer Jim Downey was also fired. Colin Quinn replaced Macdonald awkwardly mid-season. Critics noted the behind-the-scenes turmoil and mourned the deaths of two beloved alumni. The cultural impact was mixed—the show was improving creatively but the Macdonald firing became one of SNL's most infamous moments, representing NBC's most heavy-handed interference since the mid-90s crisis.",
     "hosts": "Samuel L. Jackson, Helen Hunt, John Goodman, Garth Brooks",
     "music": "Missy Elliott, Natalie Imbruglia, Backstreet Boys, Garbage",
     "sketches": "Celebrity Jeopardy debut, The Roxbury Guys, Mango"
@@ -237,7 +237,7 @@ export const seasonsData: SeasonData[] = [
     "year": "1998-1999",
     "cast": "Ana Gasteyer, Cheri Oteri, Chris Kattan, Chris Parnell, Colin Quinn, Darrell Hammond, Horatio Sanz, Jimmy Fallon, Molly Shannon, Tim Meadows, Tracy Morgan, Will Ferrell",
     "anchors": "Colin Quinn",
-    "summary": "Season twenty-four (1998-99) saw SNL regain much of its former glory. The cast was firing on all cylinders, with Ferrell, Hammond, Shannon, Cheri Oteri, and others creating memorable characters. Behind the scenes, the show had found its groove again. Critics praised the ensemble and sketch quality, declaring SNL back in form. The cultural impact was substantial—political impressions were influential, recurring characters were hugely popular, and the show was again essential viewing. This season marked the end of SNL's late-90s slump.",
+    "summary": "Season twenty-four (1998-99) marked a creative upswing and the beginning of SNL's recovery. Jimmy Fallon, Chris Parnell, and Horatio Sanz joined as featured players, injecting new energy. Behind the scenes, Lorne Michaels regained control after Don Ohlmeyer's interference era, and the show reduced its over-reliance on recurring characters. Critics praised the improvement and more diverse sketch work. The cultural impact was positive—the show was regaining credibility and consistency. The Bill Clinton-Monica Lewinsky scandal provided rich political material. This season proved SNL could rebuild successfully and set the stage for the upcoming 25th anniversary celebration.",
     "hosts": "Cameron Diaz, Ben Stiller, Gwyneth Paltrow, Bill Murray, Jerry Seinfeld",
     "music": "Smashing Pumpkins, Cher, Marilyn Manson, Dave Matthews Band",
     "sketches": "More Cowbell, The Roxbury Guys final, Goth Talk, Crazy travel agent"
@@ -257,7 +257,7 @@ export const seasonsData: SeasonData[] = [
     "year": "2000-2001",
     "cast": "Ana Gasteyer, Chris Kattan, Chris Parnell, Darrell Hammond, Horatio Sanz, Jerry Minor, Jimmy Fallon, Maya Rudolph, Molly Shannon, Rachel Dratch, Tina Fey, Tracy Morgan, Will Ferrell",
     "anchors": "Jimmy Fallon, Tina Fey",
-    "summary": "Season twenty-six (2000-01) saw major departures including Molly Shannon and Cheri Oteri, while retaining Will Ferrell and adding Jimmy Fallon and Tina Fey (as head writer and Update co-anchor). Behind the scenes, another generational transition was underway. Critics were cautiously optimistic about the new direction. The cultural impact remained strong, particularly with the contentious 2000 presidential election providing rich material for political satire. The show was successfully managing another cast turnover while maintaining quality.",
+    "summary": "Season twenty-six (2000-01) was dominated by the contentious 2000 presidential election between Al Gore and George W. Bush. Will Ferrell's Bush and Darrell Hammond's Gore became iconic, with Ferrell later suggesting his \"humanized\" portrayal may have helped Bush win. Behind the scenes, Tina Fey became head writer (the first woman in that role) and joined Jimmy Fallon as Weekend Update co-anchor, creating a more playful dynamic. Tim Meadows, Cheri Oteri, and Colin Quinn all left after this season. Critics hailed the political satire as some of SNL's best work. The cultural impact was substantial—phrases like \"strategery\" and \"lockbox\" entered the cultural lexicon, and SNL was again central to political discourse during a presidential election.",
     "hosts": "Rob Lowe, Jennifer Lopez, Christopher Walken, Alec Baldwin",
     "music": "U2, Destiny's Child, Radiohead, Macy Gray, Eminem",
     "sketches": "Boston Teens, Jarret's Room, The Barry Gibb Talk Show debut"
@@ -305,7 +305,7 @@ export const seasonsData: SeasonData[] = [
   {
     "season": 31,
     "year": "2005-2006",
-    "cast": "Amy Poehler, Andy Samberg, Bill Hader, Chris Parnell, Darrell Hammond, Finesse Mitchell, Fred Armisen, Jason Sudeikis, Kenan Thompson, Kristen Wiig, Maya Rudolph, Rachel Dratch, Seth Meyers, Tina Fey, Tracy Morgan, Will Forte",
+    "cast": "Amy Poehler, Andy Samberg, Bill Hader, Chris Parnell, Darrell Hammond, Finesse Mitchell, Fred Armisen, Horatio Sanz, Jason Sudeikis, Kenan Thompson, Kristen Wiig, Maya Rudolph, Rachel Dratch, Seth Meyers, Tina Fey, Tracy Morgan, Will Forte",
     "anchors": "Tina Fey, Amy Poehler, Horatio Sanz",
     "summary": "Season thirty-one (2005-06) saw a creative renaissance thanks largely to the emergence of the Lonely Island digital shorts. \"Lazy Sunday\" went viral on YouTube, demonstrating how digital media could amplify SNL's reach. Behind the scenes, the show was adapting to the internet age and reaching younger audiences through online clips. Critics praised the innovation and renewed energy. The cultural impact was substantial—SNL was suddenly relevant to a generation that didn't watch live TV. This season marked SNL's successful transition into the digital era.",
     "hosts": "Steve Martin, Dane Cook, Scarlett Johansson, Peyton Manning, Alec Baldwin",

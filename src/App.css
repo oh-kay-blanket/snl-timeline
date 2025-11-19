@@ -72,8 +72,9 @@
 
 .season-summary-container {
   position: relative;
-  max-width: 600px;
-  min-height: 48px;
+  max-width: 90vw;
+  width: 500px;
+  min-height: 51px;
   overflow: hidden;
   cursor: pointer;
   display: flex;

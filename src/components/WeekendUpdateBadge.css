@@ -1,8 +1,8 @@
 .wu-badge-floating {
   position: fixed;
   transform: translate(-50%, -50%);
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   object-fit: cover;
   pointer-events: none;
@@ -12,7 +12,7 @@
 
 @media (max-width: 767px) {
   .wu-badge-floating {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
   }
 }

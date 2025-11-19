@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Read the CSV file
-const csvPath = path.join(__dirname, 'src/data/seasons.csv');
+const csvPath = path.join(__dirname, '../src/data/seasons.csv');
 const csvContent = fs.readFileSync(csvPath, 'utf-8');
 
 // Parse CSV
@@ -34,7 +34,7 @@ export const seasonsData: SeasonData[] = ${JSON.stringify(seasons, null, 2)};
 `;
 
 // Write to seasons.ts
-const tsPath = path.join(__dirname, 'src/data/seasons.ts');
+const tsPath = path.join(__dirname, '../src/data/seasons.ts');
 fs.writeFileSync(tsPath, tsContent);
 
 console.log(`✅ Successfully converted ${seasons.length} seasons to seasons.ts`);

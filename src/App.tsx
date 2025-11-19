@@ -45,6 +45,7 @@ function App() {
   const currentOpacity = 1 - transitionProgress;
   const nextOpacity = transitionProgress;
 
+
   return (
     <div className="app">
       <Timeline seasons={seasons} scrollProgress={scrollProgress} />
