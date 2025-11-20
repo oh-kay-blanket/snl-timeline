@@ -43,26 +43,39 @@
   position: absolute;
   left: 0;
   transform: translateY(-50%);
-  width: 30px;
+  width: 12px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgb(208, 16, 16);
   pointer-events: none;
+}
+
+.timeline-year-label-container {
+  position: absolute;
+  left: 3px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  min-width: 45px;
+  height: 20px;
+  padding: 2px 6px;
+  background-color: #2a2a2a;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .timeline-year-label {
   position: absolute;
-  left: 3px;
-  transform: translateY(-50%);
-  padding: 0 2px;
+  top: 0;
+  left: 5px;
   color: white;
-  background-color: #2a2a2a;
-  border: 1px solid #fff;
-  border-radius: 6px;
-  font-size: 12px;
   font-size: 14px;
   font-weight: 400;
   pointer-events: none;
   white-space: nowrap;
+  will-change: transform, opacity;
 }
 
 /* Mobile adjustments */
@@ -90,8 +103,14 @@
     width: 20px;
   }
 
-  .timeline-year-label {
+  .timeline-year-label-container {
     left: 2px;
+    min-width: 41px;
+    height: 16px;
+    padding: 1px 5px;
+  }
+
+  .timeline-year-label {
     font-size: 12px;
   }
 }

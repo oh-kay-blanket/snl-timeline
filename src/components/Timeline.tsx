@@ -12,7 +12,13 @@ export default function Timeline({ seasons, scrollProgress }: TimelineProps) {
   const [hoveredSeason, setHoveredSeason] = useState<number | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const currentSeasonIndex = Math.round(scrollProgress);
+  // Calculate current and next season for smooth transitions
+  const currentSeasonIndex = Math.floor(scrollProgress);
+  const nextSeasonIndex = Math.min(currentSeasonIndex + 1, seasons.length - 1);
+  const transitionProgress = scrollProgress - currentSeasonIndex;
+
+  // Use rounded value for the tick position
+  const snappedIndex = Math.round(scrollProgress);
 
   const scrollToSeason = (seasonIndex: number) => {
     const scrollContainer = document.querySelector('.scroll-container') as HTMLElement;
@@ -125,7 +131,17 @@ export default function Timeline({ seasons, scrollProgress }: TimelineProps) {
     }
   };
 
-  const currentPosition = (currentSeasonIndex / (seasons.length - 1)) * 100;
+  // Smooth position for pill and tick (uses raw scrollProgress)
+  const smoothPosition = (scrollProgress / (seasons.length - 1)) * 100;
+
+  // Snapped position for season markers only
+  const currentPosition = (snappedIndex / (seasons.length - 1)) * 100;
+
+  // Calculate transforms and opacities for year label animation
+  const currentTransform = `translateY(${-transitionProgress * 100}%)`;
+  const nextTransform = `translateY(${(1 - transitionProgress) * 100}%)`;
+  const currentOpacity = 1 - transitionProgress;
+  const nextOpacity = transitionProgress;
 
   return (
     <div className="timeline">
@@ -154,7 +170,7 @@ export default function Timeline({ seasons, scrollProgress }: TimelineProps) {
         {/* Active year indicator tick - always visible */}
         <div
           className="timeline-hover-tick"
-          style={{ top: `${currentPosition}%` }}
+          style={{ top: `${smoothPosition}%` }}
         />
 
         {/* Hover indicator tick - only when hovering */}
@@ -166,23 +182,44 @@ export default function Timeline({ seasons, scrollProgress }: TimelineProps) {
         )}
       </div>
 
-      {/* Active year label - always visible */}
-      {seasons[currentSeasonIndex] && (
-        <div
-          className="timeline-year-label"
-          style={{ top: `${currentPosition}%` }}
-        >
-          {seasons[currentSeasonIndex].yearStart}
-        </div>
-      )}
+      {/* Active year label container with smooth transitions */}
+      <div
+        className="timeline-year-label-container"
+        style={{ top: `${smoothPosition}%` }}
+      >
+        {seasons[currentSeasonIndex] && (
+          <div
+            className="timeline-year-label"
+            style={{
+              transform: `translateY(${-transitionProgress * 100}%)`,
+              opacity: currentOpacity
+            }}
+          >
+            {seasons[currentSeasonIndex].yearStart}
+          </div>
+        )}
+        {currentSeasonIndex !== nextSeasonIndex && seasons[nextSeasonIndex] && (
+          <div
+            className="timeline-year-label"
+            style={{
+              transform: `translateY(${(1 - transitionProgress) * 100}%)`,
+              opacity: nextOpacity
+            }}
+          >
+            {seasons[nextSeasonIndex].yearStart}
+          </div>
+        )}
+      </div>
 
       {/* Hover year label - only when hovering */}
       {hoveredSeason !== null && seasons[hoveredSeason] && (
         <div
-          className="timeline-year-label"
+          className="timeline-year-label-container"
           style={{ top: `${(hoveredSeason / (seasons.length - 1)) * 100}%` }}
         >
-          {seasons[hoveredSeason].yearStart}
+          <div className="timeline-year-label">
+            {seasons[hoveredSeason].yearStart}
+          </div>
         </div>
       )}
     </div>
