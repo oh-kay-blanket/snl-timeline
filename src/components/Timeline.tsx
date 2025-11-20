@@ -17,9 +17,6 @@ export default function Timeline({ seasons, scrollProgress }: TimelineProps) {
   const nextSeasonIndex = Math.min(currentSeasonIndex + 1, seasons.length - 1);
   const transitionProgress = scrollProgress - currentSeasonIndex;
 
-  // Use rounded value for the tick position
-  const snappedIndex = Math.round(scrollProgress);
-
   const scrollToSeason = (seasonIndex: number) => {
     const scrollContainer = document.querySelector('.scroll-container') as HTMLElement;
     if (scrollContainer) {
