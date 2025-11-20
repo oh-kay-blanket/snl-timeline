@@ -134,12 +134,7 @@ export default function Timeline({ seasons, scrollProgress }: TimelineProps) {
   // Smooth position for pill and tick (uses raw scrollProgress)
   const smoothPosition = (scrollProgress / (seasons.length - 1)) * 100;
 
-  // Snapped position for season markers only
-  const currentPosition = (snappedIndex / (seasons.length - 1)) * 100;
-
-  // Calculate transforms and opacities for year label animation
-  const currentTransform = `translateY(${-transitionProgress * 100}%)`;
-  const nextTransform = `translateY(${(1 - transitionProgress) * 100}%)`;
+  // Calculate opacities for year label animation
   const currentOpacity = 1 - transitionProgress;
   const nextOpacity = transitionProgress;
 
