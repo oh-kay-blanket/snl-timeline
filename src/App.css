@@ -162,7 +162,7 @@
 
   .season-summary-container {
     max-width: calc(100vw - 40px);
-    min-height: 75px;
+    min-height: 50px;
     padding: 6px 10px;
     margin-left: -10px;
   }
@@ -173,7 +173,7 @@
     top: 6px;
     left: 10px;
     right: 28px;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
   }
 
   .expand-indicator {
