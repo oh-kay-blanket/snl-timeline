@@ -909,7 +909,7 @@ export const cast: CastMember[] = [
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2019-present). First East Asian cast member. First openly gay male cast member. Known for standout character work. Six seasons."
+    bio: "Cast member (2019-present). First East Asian cast member. Known for standout character work. Six seasons."
   },
   {
     name: "Andrew Dismukes",
