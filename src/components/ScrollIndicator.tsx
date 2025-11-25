@@ -25,6 +25,7 @@ export default function ScrollIndicator({ scrollProgress }: ScrollIndicatorProps
 
   return (
     <div className="scroll-indicator" style={{ opacity }}>
+      <div className="scroll-indicator-text">scroll</div>
       <div className="scroll-indicator-arrow">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path

@@ -4,6 +4,7 @@ import SeasonView from './components/SeasonView';
 import CastBioModal from './components/CastBioModal';
 import ScrollIndicator from './components/ScrollIndicator';
 import SeasonInfoModal from './components/SeasonInfoModal';
+import AboutCreditsModal from './components/AboutCreditsModal';
 import AllCastView from './components/AllCastView';
 import Timeline from './components/Timeline';
 import { parseSeasonData } from './utils/dataParser';
@@ -14,6 +15,7 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedCast, setSelectedCast] = useState<CastMember | null>(null);
   const [selectedSeasonInfo, setSelectedSeasonInfo] = useState<SeasonWithCast | null>(null);
+  const [showAboutModal, setShowAboutModal] = useState(false);
 
   // Parse season data once
   const seasons = useMemo(() => parseSeasonData(), []);
@@ -52,6 +54,20 @@ function App() {
 
       <div className="fixed-season-info">
         <div className="season-number">
+          <span
+            className='season-title'
+            onClick={() => setShowAboutModal(true)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setShowAboutModal(true);
+              }
+            }}
+          >
+            SNL Timeline &nbsp;
+          </span>
           <span className="season-label">Season </span>
           <span className="season-number-container">
             {currentSeason && (
@@ -169,6 +185,11 @@ function App() {
       <SeasonInfoModal
         season={selectedSeasonInfo}
         onClose={() => setSelectedSeasonInfo(null)}
+      />
+
+      <AboutCreditsModal
+        isOpen={showAboutModal}
+        onClose={() => setShowAboutModal(false)}
       />
 
       <ScrollIndicator scrollProgress={scrollProgress} />
