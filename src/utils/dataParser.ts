@@ -89,6 +89,7 @@ export function parseSeasonData(): SeasonWithCast[] {
       departingCast,
       continuingCast,
       anchors: seasonData.anchors || '',
+      tagline: seasonData.tagline || '',
       summary: seasonData.summary || '',
       hosts: seasonData.hosts || '',
       music: seasonData.music || '',

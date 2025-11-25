@@ -92,7 +92,7 @@ export default function SeasonInfoModal({ season, onClose }: SeasonInfoModalProp
 
             {musicalGuests.length > 0 && (
               <div className="season-info-section">
-                <h3>Musical Guests</h3>
+                <h3>Memorable Musical Guests</h3>
                 <div className="season-info-grid">
                   {musicalGuests.map((artist, index) => (
                     <span key={index} className="season-info-item">

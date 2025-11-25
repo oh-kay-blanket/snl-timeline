@@ -138,7 +138,7 @@ function App() {
                 opacity: currentOpacity
               }}
             >
-              {currentSeason.summary}
+              {currentSeason.tagline}
             </div>
           )}
           {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
@@ -149,7 +149,7 @@ function App() {
                 opacity: nextOpacity
               }}
             >
-              {nextSeason.summary}
+              {nextSeason.tagline}
             </div>
           )}
           <svg className="expand-indicator" width="16" height="16" viewBox="0 0 16 16" fill="none">
