@@ -255,11 +255,11 @@ function getOrCreateSeasonPositions(
 
   // Stack inactive cast
   groups.before.forEach(member => {
-    positionMap.set(member.name, { x: leftX, y: centerY });
+    positionMap.set(member.name, { x: rightX, y: centerY });
   });
 
   groups.after.forEach(member => {
-    positionMap.set(member.name, { x: rightX, y: centerY });
+    positionMap.set(member.name, { x: leftX, y: centerY });
   });
 
   // Cache these positions

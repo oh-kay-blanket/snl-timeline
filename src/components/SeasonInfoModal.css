@@ -35,6 +35,18 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
+.season-info-modal.no-initial-animation {
+  animation: none;
+}
+
+.season-info-modal.slide-in-right {
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+.season-info-modal.slide-in-left {
+  animation: slideInFromLeft 0.3s ease-out;
+}
+
 @keyframes slideUp {
   from {
     transform: translateY(20px);
@@ -43,6 +55,50 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
   }
 }
 
@@ -69,6 +125,39 @@
   color: rgba(255, 255, 255, 1);
 }
 
+.season-info-modal-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  z-index: 10001;
+  backdrop-filter: blur(4px);
+}
+
+.season-info-modal-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.15);
+}
+
+.season-info-modal-nav-prev {
+  left: calc(50% - 330px);
+}
+
+.season-info-modal-nav-next {
+  right: calc(50% - 330px);
+}
+
 .season-info-modal-content {
   padding: 40px;
   overflow-y: auto;
@@ -76,7 +165,7 @@
 }
 
 .season-info-modal-header {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .season-info-modal-header h2 {
@@ -91,8 +180,16 @@
   font-size: 20px;
   font-weight: 300;
   color: #a0a0a0;
-  margin: 0;
+  margin: 0 0 12px 0;
   letter-spacing: 0.5px;
+}
+
+.season-info-modal-tagline {
+  font-size: 18px;
+  font-weight: 500;
+  color: #e0e0e0;
+  margin: 0;
+  font-style: italic;
 }
 
 .season-info-summary {
@@ -117,7 +214,6 @@
   font-weight: 600;
   color: #ffffff;
   margin: 0 0 16px 0;
-  text-transform: uppercase;
   letter-spacing: 1px;
   opacity: 0.8;
 }
@@ -169,6 +265,19 @@
     max-width: 100%;
     max-height: 90vh;
     border-radius: 12px;
+  }
+
+  .season-info-modal-nav {
+    width: 44px;
+    height: 44px;
+  }
+
+  .season-info-modal-nav-prev {
+    left: 10px;
+  }
+
+  .season-info-modal-nav-next {
+    right: 10px;
   }
 
   .season-info-modal-content {

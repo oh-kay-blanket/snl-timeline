@@ -1,13 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { SeasonWithCast } from '../types';
 import './SeasonInfoModal.css';
 
 interface SeasonInfoModalProps {
   season: SeasonWithCast | null;
   onClose: () => void;
+  allSeasons: SeasonWithCast[];
+  onNavigate: (season: SeasonWithCast) => void;
 }
 
-export default function SeasonInfoModal({ season, onClose }: SeasonInfoModalProps) {
+export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigate }: SeasonInfoModalProps) {
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+  const [hasNavigated, setHasNavigated] = useState(false);
+
   useEffect(() => {
     if (season) {
       document.body.style.overflow = 'hidden';
@@ -38,6 +44,51 @@ export default function SeasonInfoModal({ season, onClose }: SeasonInfoModalProp
 
   if (!season) return null;
 
+  // Find current season index
+  const currentIndex = allSeasons.findIndex(s => s.season === season.season);
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < allSeasons.length - 1;
+
+  const handlePrevious = () => {
+    if (hasPrevious) {
+      setSlideDirection('left');
+      setHasNavigated(true);
+      onNavigate(allSeasons[currentIndex - 1]);
+    }
+  };
+
+  const handleNext = () => {
+    if (hasNext) {
+      setSlideDirection('right');
+      setHasNavigated(true);
+      onNavigate(allSeasons[currentIndex + 1]);
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStart.x;
+    const deltaY = touch.clientY - touchStart.y;
+
+    // Require horizontal movement > vertical movement and > 50px threshold
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0 && hasPrevious) {
+        handlePrevious(); // Swiped right
+      } else if (deltaX < 0 && hasNext) {
+        handleNext(); // Swiped left
+      }
+    }
+
+    setTouchStart(null);
+  };
+
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -52,7 +103,48 @@ export default function SeasonInfoModal({ season, onClose }: SeasonInfoModalProp
 
   return (
     <div className="season-info-modal-backdrop" onClick={handleBackdropClick}>
-      <div className="season-info-modal">
+      <button
+        className="season-info-modal-nav season-info-modal-nav-prev"
+        onClick={handlePrevious}
+        aria-label="Previous season"
+        disabled={!hasPrevious}
+        style={{ opacity: hasPrevious ? 1 : 0, pointerEvents: hasPrevious ? 'auto' : 'none' }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M15 18l-6-6 6-6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      <button
+        className="season-info-modal-nav season-info-modal-nav-next"
+        onClick={handleNext}
+        aria-label="Next season"
+        disabled={!hasNext}
+        style={{ opacity: hasNext ? 1 : 0, pointerEvents: hasNext ? 'auto' : 'none' }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M9 18l6-6-6-6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      <div
+        className={`season-info-modal ${hasNavigated ? 'no-initial-animation' : ''} ${slideDirection === 'left' ? 'slide-in-left' : slideDirection === 'right' ? 'slide-in-right' : ''}`}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onAnimationEnd={() => setSlideDirection(null)}
+      >
         <button className="season-info-modal-close" onClick={onClose} aria-label="Close">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
@@ -68,6 +160,9 @@ export default function SeasonInfoModal({ season, onClose }: SeasonInfoModalProp
           <div className="season-info-modal-header">
             <h2>Season {season.season}</h2>
             <p className="season-info-modal-year">{season.year}</p>
+            {season.tagline && (
+              <p className="season-info-modal-tagline">{season.tagline}</p>
+            )}
           </div>
 
           {season.summary && (

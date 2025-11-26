@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import './ScrollContainer.css';
 
 interface ScrollContainerProps {
@@ -6,8 +6,27 @@ interface ScrollContainerProps {
   onScrollProgress?: (progress: number) => void;
 }
 
-export default function ScrollContainer({ children, onScrollProgress }: ScrollContainerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+export interface ScrollContainerHandle {
+  scrollToSeason: (seasonIndex: number, options?: { smooth?: boolean }) => void;
+}
+
+const ScrollContainer = forwardRef<ScrollContainerHandle, ScrollContainerProps>(
+  ({ children, onScrollProgress }, ref) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useImperativeHandle(ref, () => ({
+      scrollToSeason: (seasonIndex: number, options = { smooth: true }) => {
+        if (containerRef.current) {
+          const viewportHeight = containerRef.current.clientHeight;
+          const targetScrollTop = seasonIndex * viewportHeight;
+
+          containerRef.current.scrollTo({
+            top: targetScrollTop,
+            behavior: options.smooth ? 'smooth' : 'auto'
+          });
+        }
+      }
+    }));
 
   useEffect(() => {
     const container = containerRef.current;
@@ -33,9 +52,14 @@ export default function ScrollContainer({ children, onScrollProgress }: ScrollCo
     };
   }, [onScrollProgress]);
 
-  return (
-    <div ref={containerRef} className="scroll-container">
-      {children}
-    </div>
-  );
-}
+    return (
+      <div ref={containerRef} className="scroll-container">
+        {children}
+      </div>
+    );
+  }
+);
+
+ScrollContainer.displayName = 'ScrollContainer';
+
+export default ScrollContainer;

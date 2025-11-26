@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import ScrollContainer from './components/ScrollContainer';
+import { useState, useMemo, useRef } from 'react';
+import ScrollContainer, { type ScrollContainerHandle } from './components/ScrollContainer';
 import SeasonView from './components/SeasonView';
 import CastBioModal from './components/CastBioModal';
 import ScrollIndicator from './components/ScrollIndicator';
@@ -16,6 +16,7 @@ function App() {
   const [selectedCast, setSelectedCast] = useState<CastMember | null>(null);
   const [selectedSeasonInfo, setSelectedSeasonInfo] = useState<SeasonWithCast | null>(null);
   const [showAboutModal, setShowAboutModal] = useState(false);
+  const scrollContainerRef = useRef<ScrollContainerHandle>(null);
 
   // Parse season data once
   const seasons = useMemo(() => parseSeasonData(), []);
@@ -47,13 +48,25 @@ function App() {
   const currentOpacity = 1 - transitionProgress;
   const nextOpacity = transitionProgress;
 
+  const handleModalNavigate = (season: SeasonWithCast) => {
+    // Find the season index
+    const seasonIndex = seasons.findIndex(s => s.season === season.season);
+
+    // Scroll to that season instantly (no smooth animation)
+    if (seasonIndex !== -1) {
+      scrollContainerRef.current?.scrollToSeason(seasonIndex, { smooth: false });
+    }
+
+    // Update modal to show new season
+    setSelectedSeasonInfo(season);
+  };
 
   return (
     <div className="app">
       <Timeline seasons={seasons} scrollProgress={scrollProgress} />
 
       <div className="fixed-season-info">
-        <div className="season-number">
+        <div className="season-title-row">
           <span
             className='season-title'
             onClick={() => setShowAboutModal(true)}
@@ -66,60 +79,10 @@ function App() {
               }
             }}
           >
-            SNL Timeline &nbsp;
-          </span>
-          <span className="season-label">Season </span>
-          <span className="season-number-container">
-            {currentSeason && (
-              <span
-                className="season-number-value"
-                style={{
-                  transform: currentTransform,
-                  opacity: currentOpacity
-                }}
-              >
-                {currentSeason.season}
-              </span>
-            )}
-            {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
-              <span
-                className="season-number-value"
-                style={{
-                  transform: nextTransform,
-                  opacity: nextOpacity
-                }}
-              >
-                {nextSeason.season}
-              </span>
-            )}
-          </span>
-          <span className="season-year-inline-container">
-            {currentSeason && (
-              <span
-                className="season-year-inline"
-                style={{
-                  transform: currentTransform,
-                  opacity: currentOpacity
-                }}
-              >
-                ({currentSeason.year})
-              </span>
-            )}
-            {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
-              <span
-                className="season-year-inline"
-                style={{
-                  transform: nextTransform,
-                  opacity: nextOpacity
-                }}
-              >
-                ({nextSeason.year})
-              </span>
-            )}
+            SNL Timeline
           </span>
         </div>
-        <div
-          className="season-summary-container"
+        <div className="season-clickable-area"
           onClick={() => setSelectedSeasonInfo(currentSeason)}
           role="button"
           tabIndex={0}
@@ -130,6 +93,35 @@ function App() {
             }
           }}
         >
+          <div className="season-info-row">
+            {currentSeason && (
+              <div
+                className="season-info-content"
+                style={{
+                  transform: currentTransform,
+                  opacity: currentOpacity
+                }}
+              >
+                <span className="season-label">Season </span>
+                <span className="season-number-value">{currentSeason.season}</span>
+                <span className="season-year-inline"> {currentSeason.year}</span>
+              </div>
+            )}
+            {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
+              <div
+                className="season-info-content"
+                style={{
+                  transform: nextTransform,
+                  opacity: nextOpacity
+                }}
+              >
+                <span className="season-label">Season </span>
+                <span className="season-number-value">{nextSeason.season}</span>
+                <span className="season-year-inline"> {nextSeason.year}</span>
+              </div>
+            )}
+          </div>
+          <div className="season-summary-container">
           {currentSeason && (
             <div
               className="season-summary"
@@ -156,6 +148,7 @@ function App() {
             <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
+        </div>
       </div>
 
       <AllCastView
@@ -167,7 +160,7 @@ function App() {
         onCastClick={setSelectedCast}
       />
 
-      <ScrollContainer onScrollProgress={setScrollProgress}>
+      <ScrollContainer ref={scrollContainerRef} onScrollProgress={setScrollProgress}>
         {seasons.map((season, index) => (
           <SeasonView
             key={season.season}
@@ -185,6 +178,8 @@ function App() {
       <SeasonInfoModal
         season={selectedSeasonInfo}
         onClose={() => setSelectedSeasonInfo(null)}
+        allSeasons={seasons}
+        onNavigate={handleModalNavigate}
       />
 
       <AboutCreditsModal
