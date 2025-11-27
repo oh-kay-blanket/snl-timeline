@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import type { SeasonWithCast } from '../types';
 import './SeasonInfoModal.css';
 
@@ -13,6 +13,7 @@ export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigat
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [hasNavigated, setHasNavigated] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (season) {
@@ -49,10 +50,15 @@ export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigat
   const hasPrevious = currentIndex > 0;
   const hasNext = currentIndex < allSeasons.length - 1;
 
+  const scrollToTop = () => {
+    contentRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   const handlePrevious = () => {
     if (hasPrevious) {
       setSlideDirection('left');
       setHasNavigated(true);
+      scrollToTop();
       onNavigate(allSeasons[currentIndex - 1]);
     }
   };
@@ -61,6 +67,7 @@ export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigat
     if (hasNext) {
       setSlideDirection('right');
       setHasNavigated(true);
+      scrollToTop();
       onNavigate(allSeasons[currentIndex + 1]);
     }
   };
@@ -100,6 +107,12 @@ export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigat
   const episodeHosts = season.hosts ? season.hosts.split(',').map(h => h.trim()) : [];
   const musicalGuests = season.music ? season.music.split(',').map(m => m.trim()) : [];
   const notableSketches = season.sketches ? season.sketches.split(',').map(s => s.trim()) : [];
+
+  // Helper function to convert cast member name to image URL
+  const getHeadshotUrl = (name: string) => {
+    const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    return `/images/headshots/${slug}.png`;
+  };
 
   return (
     <div className="season-info-modal-backdrop" onClick={handleBackdropClick}>
@@ -156,17 +169,17 @@ export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigat
           </svg>
         </button>
 
-        <div className="season-info-modal-content">
+        <div ref={contentRef} className="season-info-modal-content">
           <div className="season-info-modal-header">
             <h2>Season {season.season}</h2>
             <p className="season-info-modal-year">{season.year}</p>
-            {season.tagline && (
-              <p className="season-info-modal-tagline">{season.tagline}</p>
-            )}
           </div>
 
           {season.summary && (
             <div className="season-info-summary">
+              {season.tagline && (
+                <h3>{season.tagline}</h3>
+              )}
               <p>{season.summary}</p>
             </div>
           )}
@@ -216,9 +229,18 @@ export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigat
                 <h3>Weekend Update Anchors</h3>
                 <div className="season-info-grid">
                   {anchors.map((anchor, index) => (
-                    <span key={index} className="season-info-item">
-                      {anchor}
-                    </span>
+                    <div key={index} className="season-info-item season-cast-item">
+                      <img
+                        src={getHeadshotUrl(anchor)}
+                        alt={anchor}
+                        className="cast-headshot"
+                        onError={(e) => {
+                          // Hide image if it fails to load
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                      <span className="cast-name">{anchor}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -228,9 +250,18 @@ export default function SeasonInfoModal({ season, onClose, allSeasons, onNavigat
               <h3>Cast Members ({season.cast.length})</h3>
               <div className="season-info-grid">
                 {season.cast.map((member) => (
-                  <span key={member.name} className="season-info-item">
-                    {member.name}
-                  </span>
+                  <div key={member.name} className="season-info-item season-cast-item">
+                    <img
+                      src={getHeadshotUrl(member.name)}
+                      alt={member.name}
+                      className="cast-headshot"
+                      onError={(e) => {
+                        // Hide image if it fails to load
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                    <span className="cast-name">{member.name}</span>
+                  </div>
                 ))}
               </div>
             </div>

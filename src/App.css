@@ -44,15 +44,18 @@
 }
 
 .season-clickable-area {
+  position: relative;
   cursor: pointer;
   display: block;
   border-radius: 8px;
   padding: 4px 10px;
   margin-left: -10px;
+  background-color: rgba(255, 255, 255, 0.03);
   transition: background-color 0.2s ease;
   width: auto;
   max-width: 90vw;
   width: 400px;
+  overflow: hidden;
 }
 
 .season-clickable-area:hover {
@@ -63,19 +66,27 @@
   background-color: rgba(255, 255, 255, 0.08);
 }
 
+.season-info-wrapper {
+  position: relative;
+  height: 65px;
+}
+
+.season-info-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  will-change: transform, opacity;
+}
+
 .season-info-row {
   position: relative;
   height: 25px;
   margin-bottom: 4px;
-  overflow: hidden;
 }
 
 .season-info-content {
-  position: absolute;
-  top: 0;
-  left: 0;
   white-space: nowrap;
-  will-change: transform, opacity;
 }
 
 .season-label {
@@ -94,6 +105,7 @@
 .season-year-inline {
   font-size: 16px;
   font-weight: 300;
+  margin-left: 4px;
   color: #a0a0a0;
   letter-spacing: 0.5px;
   line-height: 32px;
@@ -111,24 +123,19 @@
   position: relative;
   max-width: 90vw;
   min-height: 36px;
-  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .season-summary {
-  position: absolute;
-  top: 8px;
-  left: 0px;
-  right: 32px;
+  padding-top: 8px;
+  padding-right: 32px;
   font-size: 16px;
   font-weight: 400;
   color: #c0c0c0;
   line-height: 1.4;
-  will-change: transform, opacity;
   white-space: nowrap;
-  overflow: visible;
 }
 
 .expand-indicator {
@@ -155,6 +162,10 @@
 
   .season-title {
     font-size: 36px;
+  }
+
+  .season-info-wrapper {
+    height: 53px;
   }
 
   .season-info-row {
@@ -189,7 +200,7 @@
 
   .season-summary-container {
     max-width: calc(100vw - 40px);
-    min-height: 50px;
+    min-height: 25px;
   }
 
   .season-summary {
@@ -227,6 +238,5 @@
 
   .season-number-value {
     font-size: 16px;
-    /* line-height: 40px; */
   }
 }

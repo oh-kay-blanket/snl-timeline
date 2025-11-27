@@ -177,7 +177,7 @@
 }
 
 .season-info-modal-year {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
   color: #a0a0a0;
   margin: 0 0 12px 0;
@@ -185,11 +185,10 @@
 }
 
 .season-info-modal-tagline {
-  font-size: 18px;
-  font-weight: 500;
+  /* font-size: 18px; */
+  /* font-weight: 500; */
   color: #e0e0e0;
   margin: 0;
-  font-style: italic;
 }
 
 .season-info-summary {
@@ -209,7 +208,7 @@
   gap: 32px;
 }
 
-.season-info-section h3 {
+.season-info-section h3, .season-info-summary h3 {
   font-size: 18px;
   font-weight: 600;
   color: #ffffff;
@@ -235,6 +234,31 @@
 
 .season-info-item:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.season-cast-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+}
+
+.cast-headshot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+  filter: grayscale(100%);
+}
+
+.cast-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Scrollbar styling */
@@ -270,14 +294,24 @@
   .season-info-modal-nav {
     width: 44px;
     height: 44px;
+    top: auto;
+    bottom: 40px;
+    transform: none;
+  }
+  
+  .season-info-modal-nav:hover {
+    transform: scale(1);
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
   }
 
   .season-info-modal-nav-prev {
-    left: 10px;
+    left: auto;
+    right: 76px;
   }
 
   .season-info-modal-nav-next {
-    right: 10px;
+    right: 20px;
   }
 
   .season-info-modal-content {
@@ -308,5 +342,19 @@
   .season-info-item {
     font-size: 15px;
     padding: 6px 10px;
+  }
+
+  .season-cast-item {
+    gap: 8px;
+    padding: 5px 8px;
+  }
+
+  .cast-headshot {
+    width: 28px;
+    height: 28px;
+  }
+
+  .cast-name {
+    font-size: 14px;
   }
 }

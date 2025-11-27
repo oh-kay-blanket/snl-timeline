@@ -93,61 +93,55 @@ function App() {
             }
           }}
         >
-          <div className="season-info-row">
+          <div className="season-info-wrapper">
             {currentSeason && (
               <div
-                className="season-info-content"
+                className="season-info-block"
                 style={{
                   transform: currentTransform,
                   opacity: currentOpacity
                 }}
               >
-                <span className="season-label">Season </span>
-                <span className="season-number-value">{currentSeason.season}</span>
-                <span className="season-year-inline"> {currentSeason.year}</span>
+                <div className="season-info-row">
+                  <div className="season-info-content">
+                    <span className="season-label">Season </span>
+                    <span className="season-number-value">{currentSeason.season}</span>
+                    <span className="season-year-inline"> {currentSeason.year}</span>
+                  </div>
+                </div>
+                <div className="season-summary-container">
+                  <div className="season-summary">
+                    {currentSeason.tagline}
+                  </div>
+                </div>
               </div>
             )}
             {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
               <div
-                className="season-info-content"
+                className="season-info-block"
                 style={{
                   transform: nextTransform,
                   opacity: nextOpacity
                 }}
               >
-                <span className="season-label">Season </span>
-                <span className="season-number-value">{nextSeason.season}</span>
-                <span className="season-year-inline"> {nextSeason.year}</span>
+                <div className="season-info-row">
+                  <div className="season-info-content">
+                    <span className="season-label">Season </span>
+                    <span className="season-number-value">{nextSeason.season}</span>
+                    <span className="season-year-inline"> {nextSeason.year}</span>
+                  </div>
+                </div>
+                <div className="season-summary-container">
+                  <div className="season-summary">
+                    {nextSeason.tagline}
+                  </div>
+                </div>
               </div>
             )}
           </div>
-          <div className="season-summary-container">
-          {currentSeason && (
-            <div
-              className="season-summary"
-              style={{
-                transform: currentTransform,
-                opacity: currentOpacity
-              }}
-            >
-              {currentSeason.tagline}
-            </div>
-          )}
-          {nextSeason && currentSeasonIndex !== nextSeasonIndex && (
-            <div
-              className="season-summary"
-              style={{
-                transform: nextTransform,
-                opacity: nextOpacity
-              }}
-            >
-              {nextSeason.tagline}
-            </div>
-          )}
           <svg className="expand-indicator" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-        </div>
         </div>
       </div>
 
