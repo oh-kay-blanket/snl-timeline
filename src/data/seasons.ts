@@ -192,7 +192,7 @@ export const seasonsData: SeasonData[] = [
   {
     "season": 18,
     "year": "1992-1993",
-    "cast": "Adam Sandler, Chris Farley, Dana Carvey, David Spade, Ellen Cleghorne, Julia Sweeney, Kevin Nealon, Melanie Hutsell, Phil Hartman, Rob Schneider, Tim Meadows",
+    "cast": "Adam Sandler, Chris Farley, Chris Rock, Dana Carvey, David Spade, Ellen Cleghorne, Julia Sweeney, Kevin Nealon, Melanie Hutsell, Phil Hartman, Rob Schneider, Tim Meadows",
     "anchors": "Kevin Nealon",
     "tagline": "Carvey's Exit Creates a Vacuum",
     "summary": "Season eighteen (1992-93) saw the departure of Dana Carvey, leaving a significant gap. David Spade and Rob Schneider became more prominent, and the cast skewed younger. Behind the scenes, there was pressure to develop new stars quickly. Critics were mixed, noting the loss of veteran talent but praising the energy of newer cast members. The cultural impact remained solid, particularly with the younger demographic that connected with Farley, Sandler, and Spade's humor. Political satire took a backseat to character-based comedy.",
@@ -555,7 +555,7 @@ export const seasonsData: SeasonData[] = [
   {
     "season": 51,
     "year": "2025-2026",
-    "cast": "Andrew Dismukes, Ashley Padilla, Bowen Yang, Chloe Fineman, Colin Jost, Ego Nwodim, Emil Wakim, Heidi Gardner, James Austin Johnson, Jane Wickline, Kenan Thompson, Marcello Hernández, Michael Che, Mikey Day, Sarah Sherman",
+    "cast": "Andrew Dismukes, Ashley Padilla, Bowen Yang, Chloe Fineman, Colin Jost, James Austin Johnson, Jane Wickline, Kenan Thompson, Marcello Hernández, Michael Che, Mikey Day, Sarah Sherman, Tommy Brennan, Jeremy Culhane, Ben Marshall, Kam Patterson, Veronika Slowikowska",
     "anchors": "Colin Jost, Michael Che",
     "tagline": "The Future After the Fanfare",
     "summary": "Season fifty-one (2025-26) is currently airing, following the massive 50th anniversary celebrations. The show faces the challenge of maintaining momentum after such a significant milestone. Behind the scenes, there are likely questions about the show's future direction and whether it can continue to evolve and remain relevant. Critics and audiences are watching to see how SNL charts its course into its sixth decade. The cultural impact and critical reception of this season are still unfolding, but the show continues its tradition of live comedy and cultural commentary that has defined it for over 50 years.",
