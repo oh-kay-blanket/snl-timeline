@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist --cname snl-timeline.ohkayblanket.com"
+    "deploy": "gh-pages -d dist --cname snl-timeline.ohkaycomputer.com"
   },
   "dependencies": {
     "gsap": "^3.12.5",

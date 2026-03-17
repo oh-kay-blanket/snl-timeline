@@ -1,37 +1,40 @@
-import { useEffect } from 'react';
-import './AboutCreditsModal.css';
+import { useEffect } from "react";
+import "./AboutCreditsModal.css";
 
 interface AboutCreditsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function AboutCreditsModal({ isOpen, onClose }: AboutCreditsModalProps) {
+export default function AboutCreditsModal({
+  isOpen,
+  onClose,
+}: AboutCreditsModalProps) {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, [isOpen, onClose]);
 
@@ -46,7 +49,11 @@ export default function AboutCreditsModal({ isOpen, onClose }: AboutCreditsModal
   return (
     <div className="about-modal-backdrop" onClick={handleBackdropClick}>
       <div className="about-modal">
-        <button className="about-modal-close" onClick={onClose} aria-label="Close">
+        <button
+          className="about-modal-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
               d="M18 6L6 18M6 6l12 12"
@@ -67,7 +74,7 @@ export default function AboutCreditsModal({ isOpen, onClose }: AboutCreditsModal
 
             <div className="about-modal-links">
               <a
-                href="https://ohkayblanket.com"
+                href="https://ohkaycomputer.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="about-modal-link"
