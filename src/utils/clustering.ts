@@ -17,8 +17,8 @@ export function getSafeBounds(circleRadius: number) {
   // Base margin from screen edges
   const edgeMargin = isMobile ? 40 : 80;
 
-  // Extra clearance for SVG curved text around photo
-  const nameClearance = isMobile ? 20 : 25;
+  // Extra clearance for SVG curved text around photo (names hidden on mobile)
+  const nameClearance = isMobile ? 5 : 25;
 
   // Timeline on left side (20px position + 40px width + padding)
   const timelineWidth = isMobile ? 30 : 40;
@@ -80,7 +80,7 @@ export function clusterCastMembers(
 
   // Circle radius matches photo sizing in CastMember component
   const CIRCLE_RADIUS = isMobile ? 25 : 40;
-  const NAME_CLEARANCE = isMobile ? 25 : 32; // Extra clearance for SVG curved text around photo
+  const NAME_CLEARANCE = isMobile ? 5 : 32; // Extra clearance for SVG curved text around photo (names hidden on mobile)
   const HORIZONTAL_SPACING = isMobile ? 6 : 8; // Horizontal spacing between circles
   const VERTICAL_SPACING = isMobile ? 8 : 12; // Vertical spacing to account for text above/below
 
