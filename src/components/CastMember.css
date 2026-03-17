@@ -74,12 +74,11 @@
   }
 
   .cast-member-name-text {
-    font-size: 8px;
-    padding: 2px;
+    display: none;
   }
 
-  .cast-member-name-svg-text {
-    font-size: 10px;
+  .cast-member-name-svg {
+    display: none;
   }
 }
 
