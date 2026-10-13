@@ -54,8 +54,8 @@ This will show which names from `seasons.csv` are missing from `cast.csv`. Add t
 
 ## Current Status
 
-- **170 cast members** in cast.csv
-- **165 unique cast members** in seasons.csv
+- **172 cast members** in cast.csv
+- **172 unique cast members** in seasons.csv across 52 seasons
 - All cast members from seasons.csv are present in cast.csv
 
 ## Notes

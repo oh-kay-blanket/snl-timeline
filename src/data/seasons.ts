@@ -544,23 +544,34 @@ export const seasonsData: SeasonData[] = [
   {
     "season": 50,
     "year": "2024-2025",
-    "cast": "Andrew Dismukes, Ashley Padilla, Bowen Yang, Chloe Fineman, Colin Jost, Ego Nwodim, Emil Wakim, Heidi Gardner, James Austin Johnson, Jane Wickline, Kenan Thompson, Marcello Hernández, Michael Che, Mikey Day, Sarah Sherman",
+    "cast": "Andrew Dismukes, Ashley Padilla, Bowen Yang, Chloe Fineman, Colin Jost, Devon Walker, Ego Nwodim, Emil Wakim, Heidi Gardner, James Austin Johnson, Jane Wickline, Kenan Thompson, Marcello Hernández, Michael Che, Michael Longfellow, Mikey Day, Sarah Sherman",
     "anchors": "Colin Jost, Michael Che",
     "tagline": "Half a Century of Saturday Nights",
-    "summary": "Season fifty (2024-25) is the monumental 50th anniversary season, a historic milestone for any television show. The season celebrates five decades of cultural impact and comedy innovation. Behind the scenes, preparations for anniversary specials and retrospectives are major focuses. Critics and cultural commentators are reflecting on SNL's unprecedented longevity and influence on American comedy, politics, and popular culture. The cultural impact is significant—the 50th anniversary has generated widespread media coverage and nostalgia. SNL's survival and continued relevance for half a century is recognized as a remarkable achievement in television history.",
-    "hosts": "Jean Smart, Ariana Grande, Michael Keaton, John Mulaney, Chris Rock",
-    "music": "Jelly Roll, Billie Eilish, Stevie Nicks, Coldplay, Gracie Abrams",
-    "sketches": "50th Anniversary Special, Wicked sketches, Domingo variations, Celebrity Family Feud, retrospectives"
+    "summary": "Season fifty (2024-25) marked a historic milestone as SNL celebrated its monumental 50th anniversary, capped by the prime-time live special in February 2025 and a homecoming concert. The season blended high-profile 2024 presidential election satire featuring Maya Rudolph (Kamala Harris), Dana Carvey (Joe Biden), and Andy Samberg (Doug Emhoff) with memorable host turns from Jean Smart, Ariana Grande, John Mulaney, and Nate Bargatze. Behind the scenes, the season served as an emotional farewell for longtime veterans Heidi Gardner and Ego Nwodim, while featured player Emil Wakim also departed at season's end. Critics and audiences widely celebrated the show's remarkable five-decade longevity and cultural footprint, capping off an emotional, nostalgia-rich year.",
+    "hosts": "Jean Smart, Nate Bargatze, Ariana Grande, Michael Keaton, John Mulaney, Charli XCX, Paul Mescal, Lady Gaga, Scarlett Johansson",
+    "music": "Jelly Roll, Coldplay, Stevie Nicks, Billie Eilish, Chappell Roan, Charli XCX, Sabrina Carpenter, Lady Gaga, Bad Bunny",
+    "sketches": "50th Anniversary Special, Domingo (Ariana Grande / Charli XCX), Washington's Dream 2, Bridesmaid Speech, Election 2024 Cold Opens"
   },
   {
     "season": 51,
     "year": "2025-2026",
-    "cast": "Andrew Dismukes, Ashley Padilla, Bowen Yang, Chloe Fineman, Colin Jost, James Austin Johnson, Jane Wickline, Kenan Thompson, Marcello Hernández, Michael Che, Mikey Day, Sarah Sherman, Tommy Brennan, Jeremy Culhane, Ben Marshall, Kam Patterson, Veronika Slowikowska",
+    "cast": "Andrew Dismukes, Ashley Padilla, Ben Marshall, Bowen Yang, Chloe Fineman, Colin Jost, James Austin Johnson, Jane Wickline, Jeremy Culhane, Kam Patterson, Kenan Thompson, Marcello Hernández, Michael Che, Mikey Day, Sarah Sherman, Tommy Brennan, Veronika Slowikowska",
     "anchors": "Colin Jost, Michael Che",
     "tagline": "The Future After the Fanfare",
-    "summary": "Season fifty-one (2025-26) is currently airing, following the massive 50th anniversary celebrations. The show faces the challenge of maintaining momentum after such a significant milestone. Behind the scenes, there are likely questions about the show's future direction and whether it can continue to evolve and remain relevant. Critics and audiences are watching to see how SNL charts its course into its sixth decade. The cultural impact and critical reception of this season are still unfolding, but the show continues its tradition of live comedy and cultural commentary that has defined it for over 50 years.",
-    "hosts": "Bad Bunny, Amy Poehler, Sabrina Carpenter, Ariana Grande, John Mulaney",
-    "music": "Doja Cat, Coldplay, Sabrina Carpenter, Ariana Grande, Chappell Roan",
-    "sketches": "Trump Cold Opens, Mayoral Debate, Beavis and Butt-Head, new cast debut sketches"
+    "summary": "Season fifty-one (2025-26) successfully navigated life after the 50th anniversary celebrations, highlighted by the historic broadcast of the show's 1,000th episode in January 2026 (hosted by Alexander Skarsgård with musical guest Cardi B) and culminating with a finale hosted by Will Ferrell with Paul McCartney. With veterans Gardner and Nwodim departed, sophomore standout Ashley Padilla emerged as the season's breakout MVP with viral sensations like 'Parent Teacher Conference.' Five new featured players—Tommy Brennan, Jeremy Culhane, Please Don't Destroy's Ben Marshall, Kam Patterson, and Veronika Slowikowska—brought fresh vitality. Bowen Yang made an emotional mid-season exit in December 2025, while Chloe Fineman completed her final season. Leaning into high-commitment conceptual premises like 'Auctioneers' with Matt Damon and 'Norwegian Movie Set' with Glen Powell, Season 51 finished as broadcast television's #1 comedy.",
+    "hosts": "Bad Bunny, Amy Poehler, Sabrina Carpenter, Glen Powell, Melissa McCarthy, Ariana Grande, Alexander Skarsgård, Ryan Gosling, Harry Styles, Matt Damon, Will Ferrell",
+    "music": "Doja Cat, Sabrina Carpenter, Cher, Cardi B, Gorillaz, Harry Styles, Jack White, Olivia Rodrigo, Paul McCartney",
+    "sketches": "1,000th Episode Special, Auctioneers (Matt Damon), Norwegian Movie Set, Goo Goo Man (Ryan Gosling), Parent Teacher Conference, Pam Bondi Hearing"
+  },
+  {
+    "season": 52,
+    "year": "2026-2027",
+    "cast": "Andrew Dismukes, Ashley Padilla, Ben Marshall, Colin Jost, Grace Reiter, James Austin Johnson, Jane Wickline, Jeremy Culhane, Kam Patterson, Kenan Thompson, Marcello Hernández, Michael Che, Mikey Day, Saidah Belo-Osagie, Sarah Sherman, Tommy Brennan, Veronika Slowikowska",
+    "anchors": "Colin Jost, Michael Che",
+    "tagline": "A New Era Takes the Stage",
+    "summary": "Season fifty-two (2026-27) is currently airing, opening a fresh chapter for Studio 8H following the departure of Chloe Fineman. Ashley Padilla and Jane Wickline were promoted to repertory status after standout sophomore runs, while two new featured players joined the ensemble: internet sketch comedian Grace Reiter—making history as the first SNL cast member born in the 2000s—and New York indie stand-up/filmmaker Saidah Belo-Osagie. With Colin Jost and Michael Che continuing their record-breaking tenure at the Weekend Update desk and Kenan Thompson entering an unprecedented 24th season, the ensemble blends established veteran stability with an energetic new generation. The season premiered in September 2026 with New York Knicks star Jalen Brunson hosting alongside global girl group Katseye.",
+    "hosts": "Jalen Brunson, Dakota Johnson, Shane Gillis, Inde Navarrette",
+    "music": "Katseye, Turnstile, Rosalía, Gracie Abrams",
+    "sketches": "Season Premiere with Jalen Brunson, Midterm & Presidential Cold Opens, Weekend Update 2026 Desk Pieces, Digital Ensemble Sketches"
   }
 ];

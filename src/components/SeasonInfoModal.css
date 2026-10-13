@@ -26,7 +26,7 @@
 .season-info-modal {
   background: #2a2a2a;
   border-radius: 12px;
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   max-height: 80vh;
   overflow: hidden;
@@ -139,7 +139,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
   z-index: 10001;
   backdrop-filter: blur(4px);
 }
@@ -151,11 +155,11 @@
 }
 
 .season-info-modal-nav-prev {
-  left: calc(50% - 330px);
+  left: max(20px, calc(50% - 380px));
 }
 
 .season-info-modal-nav-next {
-  right: calc(50% - 330px);
+  right: max(20px, calc(50% - 380px));
 }
 
 .season-info-modal-content {
@@ -208,7 +212,8 @@
   gap: 32px;
 }
 
-.season-info-section h3, .season-info-summary h3 {
+.season-info-section h3,
+.season-info-summary h3 {
   font-size: 18px;
   font-weight: 600;
   color: #ffffff;
@@ -298,7 +303,7 @@
     bottom: 40px;
     transform: none;
   }
-  
+
   .season-info-modal-nav:hover {
     transform: scale(1);
     background: rgba(255, 255, 255, 0.15);

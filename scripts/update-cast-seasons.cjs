@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Read seasons.csv to calculate cast member data
-const seasonsCsvPath = path.join(__dirname, 'src/data/seasons.csv');
+const seasonsCsvPath = path.join(__dirname, '../src/data/seasons.csv');
 const seasonsCsv = fs.readFileSync(seasonsCsvPath, 'utf-8');
 
 // Parse seasons.csv
@@ -28,13 +28,12 @@ for (const line of seasonLines) {
 console.log(`Found ${castAppearances.size} cast members across all seasons`);
 
 // Read cast.csv
-const castCsvPath = path.join(__dirname, 'src/data/cast.csv');
+const castCsvPath = path.join(__dirname, '../src/data/cast.csv');
 const castCsv = fs.readFileSync(castCsvPath, 'utf-8');
 const castLines = castCsv.trim().split('\n');
-const header = castLines[0];
 
 // Process each cast member
-const updatedLines = [header + '\tseason\tseason_start\ttotal_seasons'];
+const updatedLines = ['id\tname\tbio\tseason\tseason_start\ttotal_seasons'];
 
 for (let i = 1; i < castLines.length; i++) {
   const line = castLines[i];

@@ -172,4 +172,6 @@ export const heads200: SpriteCoordinates =
   'tony-rosato bw.png': [1400, 3200, 200, 200],
   'victoria-jackson bw.png': [1600, 3200, 200, 200],
   'yvonne-hudson bw.png': [1800, 3200, 200, 200],
+  'saidah-belo-osagie bw.png': [0, 3400, 200, 200],
+  'grace-reiter bw.png': [200, 3400, 200, 200],
 };

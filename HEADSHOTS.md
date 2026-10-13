@@ -10,7 +10,7 @@ public/images/
 │   ├── dan-aykroyd.png
 │   ├── john-belushi.png
 │   ├── tina-fey.png
-│   └── ... (170 total)
+│   └── ... (172 total)
 └── snl-sprites-200.png     # Combined sprite sheet (generated)
 ```
 
@@ -73,7 +73,7 @@ To update multiple headshots at once:
 
 ## Adding Missing Headshots
 
-Currently, 23 cast members have placeholder images (showing initials). To add real photos:
+Currently, 23 cast members have placeholder images. To add real photos:
 
 1. Find a 200x200px image
 2. Save it to `public/images/headshots/[slug].png`

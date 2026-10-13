@@ -281,7 +281,7 @@ export const cast: CastMember[] = [
     season: 16,
     season_start: 1990,
     gender: undefined,
-    total_seasons: 6,
+    total_seasons: 5,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -307,7 +307,7 @@ export const cast: CastMember[] = [
     season: 15,
     season_start: 1989,
     gender: undefined,
-    total_seasons: 3,
+    total_seasons: 4,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -502,7 +502,7 @@ export const cast: CastMember[] = [
     season: 24,
     season_start: 1998,
     gender: undefined,
-    total_seasons: 7,
+    total_seasons: 8,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -541,11 +541,11 @@ export const cast: CastMember[] = [
     season: 29,
     season_start: 2003,
     gender: undefined,
-    total_seasons: 23,
+    total_seasons: 24,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2003-present). Longest-running cast member in SNL history (23 seasons). Former child star (Kenan & Kel, All That). Known for What's Up With That? and game show sketches."
+    bio: "Cast member (2003-present). Longest-running cast member in SNL history (24 seasons). Former child star (Kenan & Kel, All That). Known for What's Up With That? and game show sketches."
   },
   {
     name: "Fred Armisen",
@@ -736,7 +736,7 @@ export const cast: CastMember[] = [
     season: 39,
     season_start: 2013,
     gender: undefined,
-    total_seasons: 13,
+    total_seasons: 14,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -749,7 +749,7 @@ export const cast: CastMember[] = [
     season: 40,
     season_start: 2014,
     gender: undefined,
-    total_seasons: 12,
+    total_seasons: 13,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -814,7 +814,7 @@ export const cast: CastMember[] = [
     season: 42,
     season_start: 2016,
     gender: undefined,
-    total_seasons: 10,
+    total_seasons: 11,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -866,7 +866,7 @@ export const cast: CastMember[] = [
     season: 43,
     season_start: 2017,
     gender: undefined,
-    total_seasons: 9,
+    total_seasons: 8,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -879,7 +879,7 @@ export const cast: CastMember[] = [
     season: 44,
     season_start: 2018,
     gender: undefined,
-    total_seasons: 8,
+    total_seasons: 7,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -896,7 +896,7 @@ export const cast: CastMember[] = [
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2019-present). Master impressionist known for celebrity impersonations including Timothée Chalamet and Britney Spears. Six seasons."
+    bio: "Cast member (2019-2026). Master impressionist known for celebrity impersonations including Timothée Chalamet and Britney Spears across seven seasons."
   },
   {
     name: "Bowen Yang",
@@ -909,7 +909,7 @@ export const cast: CastMember[] = [
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2019-present). First East Asian cast member. Known for standout character work. Six seasons."
+    bio: "Cast member (2019-2025). Emmy-nominated performer and first East Asian cast member. Known for standout character work; departed midway through Season 51."
   },
   {
     name: "Andrew Dismukes",
@@ -918,11 +918,11 @@ export const cast: CastMember[] = [
     season: 46,
     season_start: 2020,
     gender: undefined,
-    total_seasons: 6,
+    total_seasons: 7,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2021-present). Started as writer in 2017. Known for collaborations with James Austin Johnson. Four seasons as performer."
+    bio: "Cast member (2020-present). Started as writer in 2017. Known for absurd character work and sketches. Six seasons as performer."
   },
   {
     name: "Sarah Sherman",
@@ -931,11 +931,11 @@ export const cast: CastMember[] = [
     season: 47,
     season_start: 2021,
     gender: undefined,
-    total_seasons: 5,
+    total_seasons: 6,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2021-present). Known as Sarah Squirm. Known for body horror comedy and roasting Colin Jost. Four seasons."
+    bio: "Cast member (2021-present). Known as Sarah Squirm. Known for surreal body horror comedy and roasting Colin Jost on Weekend Update. Six seasons."
   },
   {
     name: "James Austin Johnson",
@@ -944,11 +944,11 @@ export const cast: CastMember[] = [
     season: 47,
     season_start: 2021,
     gender: undefined,
-    total_seasons: 5,
+    total_seasons: 6,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2021-present). Known for Donald Trump impression and other political figures. Four seasons as master impressionist."
+    bio: "Cast member (2021-present). Renowned master impressionist known for Donald Trump, Joe Biden, and various political figures. Six seasons."
   },
   {
     name: "Marcello Hernández",
@@ -957,11 +957,11 @@ export const cast: CastMember[] = [
     season: 48,
     season_start: 2022,
     gender: undefined,
-    total_seasons: 4,
+    total_seasons: 5,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2022-present). Known for Domingo character and various Latino characters. Three seasons on the show."
+    bio: "Cast member (2022-present). Known for the viral Domingo character and high-energy sketch work. Five seasons on the show."
   },
   {
     name: "Michael Longfellow",
@@ -970,11 +970,11 @@ export const cast: CastMember[] = [
     season: 48,
     season_start: 2022,
     gender: undefined,
-    total_seasons: 2,
+    total_seasons: 3,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2022-2025). Known for Weekend Update appearances and relatable millennial humor. Three seasons before leaving."
+    bio: "Cast member (2022-2025). Known for Weekend Update appearances and deadpan millennial humor. Three seasons (S48-S50)."
   },
   {
     name: "Devon Walker",
@@ -983,11 +983,11 @@ export const cast: CastMember[] = [
     season: 48,
     season_start: 2022,
     gender: undefined,
-    total_seasons: 2,
+    total_seasons: 3,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2022-2025). Known for impressions of Eric Adams and Michael Strahan. Three seasons before leaving."
+    bio: "Cast member (2022-2025). Known for impressions of Eric Adams and Michael Strahan. Three seasons (S48-S50)."
   },
   {
     name: "Molly Kearney",
@@ -1035,11 +1035,11 @@ export const cast: CastMember[] = [
     season: 50,
     season_start: 2024,
     gender: undefined,
-    total_seasons: 2,
+    total_seasons: 3,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2024-present). Featured player starting in Season 50. Known for viral videos and character work."
+    bio: "Cast member (2024-present). Joined in Season 50, promoted to repertory in Season 52. Named Season 51 breakout star for viral sketches like Parent Teacher Conference."
   },
   {
     name: "Jane Wickline",
@@ -1048,11 +1048,11 @@ export const cast: CastMember[] = [
     season: 50,
     season_start: 2024,
     gender: undefined,
-    total_seasons: 2,
+    total_seasons: 3,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2024-present). Featured player starting in Season 50. Known for social media comedy and impressions."
+    bio: "Cast member (2024-present). Joined in Season 50, promoted to repertory in Season 52. Known for deadpan musical comedy and original songs on Weekend Update."
   },
   {
     name: "Emil Wakim",
@@ -1061,20 +1061,20 @@ export const cast: CastMember[] = [
     season: 50,
     season_start: 2024,
     gender: undefined,
-    total_seasons: 2,
+    total_seasons: 1,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2024-2025). Featured player for Season 50 only. Let go before Season 51."
+    bio: "Cast member (2024-2025). Stand-up comedian who appeared as a featured player for Season 50."
   },
   {
     name: "Tommy Brennan",
     status: 'a',
     url: '',
-    season: 1,
-    season_start: 1975,
+    season: 51,
+    season_start: 2025,
     gender: undefined,
-    total_seasons: 1,
+    total_seasons: 2,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -1084,10 +1084,10 @@ export const cast: CastMember[] = [
     name: "Jeremy Culhane",
     status: 'a',
     url: '',
-    season: 1,
-    season_start: 1975,
+    season: 51,
+    season_start: 2025,
     gender: undefined,
-    total_seasons: 1,
+    total_seasons: 2,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -1097,10 +1097,10 @@ export const cast: CastMember[] = [
     name: "Kam Patterson",
     status: 'a',
     url: '',
-    season: 1,
-    season_start: 1975,
+    season: 51,
+    season_start: 2025,
     gender: undefined,
-    total_seasons: 1,
+    total_seasons: 2,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -1110,27 +1110,27 @@ export const cast: CastMember[] = [
     name: "Veronika Slowikowska",
     status: 'a',
     url: '',
-    season: 1,
-    season_start: 1975,
+    season: 51,
+    season_start: 2025,
     gender: undefined,
-    total_seasons: 1,
+    total_seasons: 2,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2025-present). Featured player starting in Season 51. Social media comedian with 1 million Instagram followers."
+    bio: "Cast member (2025-present). Featured player starting in Season 51. Social media comedy star and actress."
   },
   {
     name: "Ben Marshall",
     status: 'a',
     url: '',
-    season: 1,
-    season_start: 1975,
+    season: 51,
+    season_start: 2025,
     gender: undefined,
-    total_seasons: 1,
+    total_seasons: 2,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Cast member (2025-present). Featured player starting in Season 51. SNL writer since 2021 and member of Please Don't Destroy."
+    bio: "Cast member (2025-present). Promoted to featured player in Season 51 after writing and starring in Please Don't Destroy digital shorts since 2021."
   },
   {
     name: "A. Whitney Brown",
@@ -1643,10 +1643,10 @@ export const cast: CastMember[] = [
     name: "Jim Breuer",
     status: 'a',
     url: '',
-    season: 22,
-    season_start: 1996,
+    season: 21,
+    season_start: 1995,
     gender: undefined,
-    total_seasons: 2,
+    total_seasons: 3,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -1773,10 +1773,10 @@ export const cast: CastMember[] = [
     name: "Mark McKinney",
     status: 'a',
     url: '',
-    season: 21,
-    season_start: 1995,
+    season: 20,
+    season_start: 1994,
     gender: undefined,
-    total_seasons: 2,
+    total_seasons: 3,
     cat: 'unknown',
     period: 0,
     color: '#888888',
@@ -2212,68 +2212,29 @@ export const cast: CastMember[] = [
     bio: "Cast member (1980-1981). Featured player during the troubled 1980-81 season. Appeared briefly before being let go during the show's mid-season changes."
   },
   {
-    name: "Tommy Brennan",
+    name: "Saidah Belo-Osagie",
     status: 'a',
     url: '',
-    season: 51,
-    season_start: 2025,
+    season: 52,
+    season_start: 2026,
     gender: undefined,
     total_seasons: 1,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Featured player (2025-present). Stand-up comedian from St. Paul, Minnesota. Named 'New Face of Comedy' at the 2023 Just for Laughs festival. Former accountant who switched to comedy full-time in 2023. Known for his self-deprecating humor and stage presence."
+    bio: "Cast member (2026-present). Featured player starting in Season 52. Brooklyn-based Nigerian-American comedian, writer, and filmmaker known for character-driven live comedy."
   },
   {
-    name: "Jeremy Culhane",
+    name: "Grace Reiter",
     status: 'a',
     url: '',
-    season: 51,
-    season_start: 2025,
+    season: 52,
+    season_start: 2026,
     gender: undefined,
     total_seasons: 1,
     cat: 'unknown',
     period: 0,
     color: '#888888',
-    bio: "Featured player (2025-present). Los Angeles native and UCB/Groundlings-trained improviser. Known for his work on Dropout's improv content and TikTok comedy (350K followers). Previously appeared in American Vandal and The Sex Lives of College Girls. TCU alum with strong improv background."
-  },
-  {
-    name: "Ben Marshall",
-    status: 'a',
-    url: '',
-    season: 51,
-    season_start: 2025,
-    gender: undefined,
-    total_seasons: 1,
-    cat: 'unknown',
-    period: 0,
-    color: '#888888',
-    bio: "Featured player (2025-present). One-third of comedy group Please Don't Destroy, which has created digital shorts for SNL since 2021. Promoted from writing staff to cast in Season 51. Savannah, Georgia native and NYU alum. Known for viral comedy sketches and millennial/Gen-Z humor."
-  },
-  {
-    name: "Kam Patterson",
-    status: 'a',
-    url: '',
-    season: 51,
-    season_start: 2025,
-    gender: undefined,
-    total_seasons: 1,
-    cat: 'unknown',
-    period: 0,
-    color: '#888888',
-    bio: "Featured player (2025-present). Stand-up comedian from Orlando, Florida known for his appearances on the podcast Kill Tony. Honed his comedy at Central Florida open mics before moving to Austin, Texas in 2023. Known for his crowd work and one-minute stand-up sets."
-  },
-  {
-    name: "Veronika Slowikowska",
-    status: 'a',
-    url: '',
-    season: 51,
-    season_start: 2025,
-    gender: undefined,
-    total_seasons: 1,
-    cat: 'unknown',
-    period: 0,
-    color: '#888888',
-    bio: "Featured player (2025-present). Canadian comedian from Barrie, Ontario with 1M Instagram followers. First Canadian female cast member since 1981. Won 2025 Canadian Screen Award for Davey and Jonesie's Locker. Known for surreal, viral comedy sketches on social media and appearances on Tires and Poker Face."
+    bio: "Cast member (2026-present). Featured player starting in Season 52. Sketch comedian known for American High digital shorts; first cast member in SNL history born in the 2000s."
   },
 ];

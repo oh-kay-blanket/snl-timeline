@@ -32,9 +32,9 @@ export function getSpriteStyle(spriteKey: string, size: number = SPRITE_SIZE, us
   const [x, y, width] = coords;
   const scale = size / width;
 
-  // Sprite sheet dimensions: 10 images per row, 17 rows = 2000x3400 for 200px sprites
+  // Sprite sheet dimensions: 10 images per row, 18 rows = 2000x3600 for 200px sprites
   const sheetWidth = use96px ? 1248 : 2000;
-  const sheetHeight = use96px ? 1152 : 3400;
+  const sheetHeight = use96px ? 1152 : 3600;
   const imagePath = use96px ? SPRITE_IMAGE_PATH_96 : SPRITE_IMAGE_PATH;
 
   return {
